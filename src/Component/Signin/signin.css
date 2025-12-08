@@ -1,0 +1,33 @@
+
+.signin{
+    padding: 0;
+}
+.signin__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.signin h1{
+    text-align: center;
+}
+.signin svg{
+    font-size: 60px;
+}
+.signin input{
+    border: none;
+    background-color: #EBEBEB;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+.signin button{
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+}

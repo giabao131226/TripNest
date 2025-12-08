@@ -1,0 +1,86 @@
+
+.slide{
+    background-image: url("../../assets/img/z7273117212129_0a2b426fbd112c7f4967353f07f65001.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.slide1{
+    background-image: url("https://mistymount.wpenginepowered.com/wp-content/uploads/2017/05/ro2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.slide2{
+    background-image: url("https://ezcloud.vn/wp-content/uploads/2024/11/homestay-o-hai-phong.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.slide3{
+    background-image: url("https://mianhatrang.com/wp-content/uploads/2023/02/MNT_Beachfront-Villa_1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.slide__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+.slide__t {
+    position: absolute;
+    transform: translateY(120px);  /* nằm dưới khung nhìn */
+    opacity: 0;          /* mờ đi để tự nhiên */
+    transition: transform 1.8s ease, opacity 1.8s ease;
+    z-index: 1000;
+}
+.discovery{
+    position: absolute;
+    bottom: 100px;
+    left: calc(50% - 105px / 2);
+}
+.discovery button{
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    background: none;
+    border-radius: 15px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+/* khi mở */
+.open {
+    transform: translateY(0);  
+    opacity: 1;
+}
+.open2{
+    transform: translateY(40px);  
+    opacity: 1;
+}
