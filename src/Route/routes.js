@@ -1,8 +1,8 @@
 import Body from "../Component/Body/body";
 import BDSList from "../Component/dsPhong/dsPhong";
+import ChiTiet from "../Component/HienThiChiTiet/chitiet";
 import PageDefault from "../Component/PageDefault/Pagedefault";
-import Register from "../Component/Register/register";
-import SignIn from "../Component/Signin/signin";
+import QueryRoom from "../Component/QueryRoom/queryroom";
 
 export const routes = [
     {
@@ -15,7 +15,17 @@ export const routes = [
             },
             {
                 path: "/list-bds",
-                element: <BDSList />
+                element: <BDSList />,
+                children: [
+                    {
+                        path: "",
+                        element: <QueryRoom />
+                    },
+                    {
+                        path: ":id",
+                        element: <ChiTiet />
+                    }
+                ]
             }
         ]
     },

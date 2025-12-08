@@ -39,10 +39,15 @@
         "https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20061391-9708a0480139c9b61cd04955d18b7cd4.png?_src=imagekit&tr=dpr-2,fo-auto,h-280,q-40,w-280",
         "https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20061391-45d2373d5ab3dd59958c69a879278863.jpeg?_src=imagekit&tr=dpr-2,fo-auto,h-280,q-40,w-280"
       ],
+      "typeRoom": "VIP",
       "type": "Villa",
       "rate": 8.5,
       "tienich": ["Cho Thuê Xe Đạp","Điều Hoà","Lửa Trại"],
-      "diadiem": "HaNoi"
+      "diadiem": "HaNoi",
+      "danhGiaNoiBat": {
+        "name": "Thuy Linh",
+        "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+      }
     },
     {
       "id": "1",
@@ -53,10 +58,15 @@
         "https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20061391-9708a0480139c9b61cd04955d18b7cd4.png?_src=imagekit&tr=dpr-2,fo-auto,h-280,q-40,w-280",
         "https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20061391-45d2373d5ab3dd59958c69a879278863.jpeg?_src=imagekit&tr=dpr-2,fo-auto,h-280,q-40,w-280"
       ],
+      "typeRoom": "normal",
       "type": "Villa",
       "rate": 5.4,
       "tienich": ["Cho Thuê Xe Đạp","Điều Hoà","Lửa Trại"],
-      "diadiem": "HaiPhong"
+      "diadiem": "HaiPhong",
+      "danhGiaNoiBat": {
+        "name": "Thuy Linh",
+        "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+      }
     }
   ],
   "diadiem": [

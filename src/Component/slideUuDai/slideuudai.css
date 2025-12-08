@@ -1,0 +1,23 @@
+
+.slideuudai{
+    padding: 20px;
+    margin-top: 20px;
+}
+.slideGiamGia{
+    background-color: #0095FF;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 0px;
+    padding-left: 10px;
+    border-radius: 20px;
+}
+.slideDNDK{
+    background-color: #ECF8FF;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 0px;
+    padding-left: 10px;
+    border-radius: 20px;
+
+}

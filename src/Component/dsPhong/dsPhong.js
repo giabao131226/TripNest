@@ -1,35 +1,36 @@
 import { useCallback, useEffect, useState } from "react"
 import { DatePicker, Space, Select, Carousel, Tag, Rate } from 'antd';
 import { IoLocation } from "react-icons/io5";
-import { FaHotel } from "react-icons/fa6";
+import { FaHotel, FaLocationArrow } from "react-icons/fa6";
 import LocaleProvider from "antd/es/locale";
 import { IoSearch } from "react-icons/io5";
+import { MdDateRange, MdOutlineDateRange } from "react-icons/md";
 import "./dsPhong.css"
+import SlideUuDai from "../slideUuDai/SlideUuDai";
+import {Link, Outlet} from 'react-router-dom'
 const { RangePicker } = DatePicker;
 
 
 
 function BDSList() {
-    const [data, setData] = useState([])
+    const [url, setUrl] = useState("http://localhost:3000/bds")
     const [diadiem, setDiaDiem] = useState([])
     const [loaiPhong, setLoaiP] = useState([])
-    const [queryDiaDiem,setQDD] = useState("")
+    const [queryDiaDiem, setQDD] = useState("HaNoi")
+    const [queryTypeRoom, setTR] = useState("VIP")
     const handleChange = useCallback((value) => {
         setQDD(value)
-    },[])
+    }, [])
+    const TDLoaiPhong = useCallback((value) => {
+        setTR(value)
+    }, [])
     const handleClick = useCallback(() => {
-        let url = "http://localhost:3000/bds"
-        if(queryDiaDiem!="") url+="?diadiem="+queryDiaDiem;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setData(data))
+        let urlNew = "http://localhost:3000/bds";
+        url += "?diadiem=" + queryDiaDiem;
+        url += "&typeRoom=" + queryTypeRoom;
+        setUrl(urlNew)
     })
     useEffect(() => {
-        fetch("http://localhost:3000/bds")
-            .then(res => res.json())
-            .then(data => {
-                setData(data)
-            })
         fetch("http://localhost:3000/diadiem")
             .then(res => res.json())
             .then(data => {
@@ -54,70 +55,39 @@ function BDSList() {
                             </div>
                         </div>
                     </div>
+                    <SlideUuDai />
                     <div className="search">
                         <div className="search__container">
-                            <div className="city">
+                            <div className="search__box">
                                 <Select
-                                    prefix={<IoLocation />}
+                                    prefix={<IoLocation style={{ color: '#0294F3' }} />}
                                     defaultValue="Hà Nội"
-                                    style={{ width: 120 }}
+                                    style={{ width: 298, height: 70, fontSize: 18, fontWeight: 700, borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
                                     onChange={handleChange}
                                     options={diadiem}
                                 />
                             </div>
-                            <div className="day">
-                                <RangePicker />
+                            <div className="search__box">
+                                <RangePicker
+                                    prefix={<MdDateRange style={{ color: '#0294F3' }} />}
+                                    style={{ width: 298, height: 70, fontSize: 26, fontWeight: 600, borderRadius: 0 }}
+                                    className="box" />
                             </div>
-                            <div className="loaiPhong">
+                            <div className="search__box">
                                 <Select
-                                    suffixIcon={<LocaleProvider />}
+                                    className="box"
                                     defaultValue="VIP"
-                                    style={{ width: 120 }}
-                                    onChange={handleChange}
+                                    style={{ width: 298, height: 70, fontSize: 18, fontWeight: 700, borderRadius: 0 }}
+                                    onChange={TDLoaiPhong}
                                     options={loaiPhong}
                                 />
                             </div>
                             <button onClick={handleClick}><IoSearch /></button>
                         </div>
                     </div>
-                    <div className="bdsList">
-                        {data.map((item) => (
-                            <div className="bdsbox">
-                                <div className="bdsbox__container">
-                                    <Carousel autoplay arrows>
-                                        {item.images.map((image) => (
-                                            <div className="bds__image">
-                                                <img src={image}></img>
-                                            </div>
-                                        ))}
-                                    </Carousel>
-                                    <div className="bds__about">
-                                        <div className="bds__nameAndRate">
-                                            <span>{item.title}</span>
-                                            <span>{item.rate}</span>
-                                        </div>
-                                        <div className="bds__typeAndRate">
-                                            <Tag icon={<FaHotel />} color="#55acee">
-                                                {item.type}
-                                            </Tag>
-                                            <Rate defaultValue={item.rate} allowHalf />
-                                        </div>
-                                        <div className="bds__tienIch">
-                                            {item.tienich.map((dv) => (
-                                                <Tag color="cyan">{dv}</Tag>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="bds__price">
-                                        <p>{item.price}VND</p>
-                                        <button>Chọn Phòng</button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                    <Outlet context={{url}} />
             </div>
+        </div >
         </>
     )
 }

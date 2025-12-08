@@ -6,7 +6,7 @@ import "./signin.css"
 import { FaUserCircle, FaUserSecret } from "react-icons/fa";
 
 
-function SignIn({open,handleCancel,handleOK}){
+function SignIn({open,setCookie,handleCancel,handleOK}){
     const [data,setData] = useState([])
     const [user,setUser] = useState({})
     const navigate = useNavigate();
@@ -40,6 +40,7 @@ function SignIn({open,handleCancel,handleOK}){
                 icon: "success"
             });
             document.cookie = `token = ${acc.token}`
+            setCookie(document.cookie)
             navigate("/")
         }else{
             Swal.fire({
