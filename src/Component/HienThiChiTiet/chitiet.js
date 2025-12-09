@@ -16,7 +16,7 @@ function ChiTiet(){
             <div className="xemchitiet">
                 <div className="xemchitiet__container">
                     <XemAnh image = {data.images}/>
-                    <AboutRoom data = {data}/>
+                    <AboutRoom data = {data} params = {params}/>
                 </div>
             </div>
         </>

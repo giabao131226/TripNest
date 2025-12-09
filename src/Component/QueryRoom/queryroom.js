@@ -45,8 +45,8 @@ function QueryRoom(){
                                             ))}
                                         </div>
                                         <div className="bds__danhGia">
-                                            <p>{item.danhGiaNoiBat.name}</p>
-                                            <i>{item.danhGiaNoiBat.danhGia}</i>
+                                            <p>{item.danhGiaNoiBat[0].name}</p>
+                                            <i>{item.danhGiaNoiBat[0].danhGia}</i>
                                         </div>
                                     </div>
                                 </Link>

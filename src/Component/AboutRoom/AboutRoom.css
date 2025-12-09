@@ -71,6 +71,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 10px;
+    margin-bottom: 5px;
 }
 .aboutroom__dg p{
     margin: 0;
@@ -86,4 +87,8 @@
     margin-bottom: 10px;
     font-weight: 600;
     font-size: 14px;
+}
+.aboutroom__danhGia{
+    overflow: scroll;
+    margin-top: 10px;
 }

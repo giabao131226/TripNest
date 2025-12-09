@@ -55,10 +55,25 @@
         "Lửa Trại"
       ],
       "diadiem": "HaNoi",
-      "danhGiaNoiBat": {
-        "name": "Thuy Linh",
-        "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
-      }
+      "trangThai": true,
+      "danhGiaNoiBat": [
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        },
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        },
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        },
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        }
+      ]
     },
     {
       "id": "1",
@@ -78,10 +93,25 @@
         "Lửa Trại"
       ],
       "diadiem": "HaiPhong",
-      "danhGiaNoiBat": {
-        "name": "Thuy Linh",
-        "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
-      }
+      "trangThai": false,
+      "danhGiaNoiBat": [
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        },
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        },
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        },
+        {
+          "name": "Thuy Linh",
+          "danhGia": "Nhân viên dễ thương thân thiện, vệ sinh rất sạch sẽ. Mình ở 5 ngày 4 đêm và rất hài lòng"
+        }
+      ]
     }
   ],
   "diadiem": [
