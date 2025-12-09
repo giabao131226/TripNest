@@ -7,8 +7,7 @@ import "../dsPhong/dsPhong.css"
 
 
 function QueryRoom(){
-    const {url} = useOutletContext();
-    console.log(url)
+    let {url} = useOutletContext();
     const [data,setData] = useState([])
     useEffect(() => {
         fetch(url)

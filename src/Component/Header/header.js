@@ -1,4 +1,4 @@
-import avatar from "../../assets/img/Logo.png"
+import avatar from "../../assets/img/Logo-final.PNG"
 import { CiDiscount1 } from "react-icons/ci";
 import { IoMdPerson } from "react-icons/io";
 import "./head.css";
@@ -79,7 +79,7 @@ function Header() {
                             <li>Hợp tác với chúng tôi</li>
                             <li>Đặt chỗ</li>
                             <li>
-                                {document.cookie != "" ? <div className="user">
+                                {cookie != "" ? <div className="user">
                                     <div className="user__container">
                                         <Dropdown menu={{items}}>
                                             <a onClick={e => e.preventDefault()}>

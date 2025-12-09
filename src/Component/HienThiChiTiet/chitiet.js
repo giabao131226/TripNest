@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import XemAnh from "../XemAnh/xemanh";
+import AboutRoom from "../AboutRoom/AboutRoom";
 
 function ChiTiet(){
     const params = useParams()
@@ -11,7 +13,12 @@ function ChiTiet(){
     },[])
     return (
         <>
-            
+            <div className="xemchitiet">
+                <div className="xemchitiet__container">
+                    <XemAnh image = {data.images}/>
+                    <AboutRoom data = {data}/>
+                </div>
+            </div>
         </>
     )
 }

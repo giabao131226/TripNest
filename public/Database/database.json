@@ -27,6 +27,13 @@
       "password": "ruoidaibe123",
       "email": "ruoi@gmail.com",
       "token": "EFT3iytsFjd4NZsiDu2WiJirQ"
+    },
+    {
+      "id": "bf8a",
+      "name": "hoangAnh123",
+      "password": "123123123",
+      "email": "baosom2006@gmail.com",
+      "token": "b40brxt1XZmInTssjAeqSIoeS"
     }
   ],
   "bds": [
@@ -42,7 +49,11 @@
       "typeRoom": "VIP",
       "type": "Villa",
       "rate": 8.5,
-      "tienich": ["Cho Thuê Xe Đạp","Điều Hoà","Lửa Trại"],
+      "tienich": [
+        "Cho Thuê Xe Đạp",
+        "Điều Hoà",
+        "Lửa Trại"
+      ],
       "diadiem": "HaNoi",
       "danhGiaNoiBat": {
         "name": "Thuy Linh",
@@ -61,7 +72,11 @@
       "typeRoom": "normal",
       "type": "Villa",
       "rate": 5.4,
-      "tienich": ["Cho Thuê Xe Đạp","Điều Hoà","Lửa Trại"],
+      "tienich": [
+        "Cho Thuê Xe Đạp",
+        "Điều Hoà",
+        "Lửa Trại"
+      ],
       "diadiem": "HaiPhong",
       "danhGiaNoiBat": {
         "name": "Thuy Linh",
@@ -70,14 +85,35 @@
     }
   ],
   "diadiem": [
-    { "value": "HaNoi", "label": "Hà Nội" },
-    { "value": "Đà Nẵng", "label": "Đà Nẵng" },
-    { "value": "Nghệ An", "label": "Nghệ An" },
-    { "value": "Hải Phòng", "label": "Hải Phòng" },
-    { "value": "TP HCM", "label": "TP HCM" }
+    {
+      "value": "HaNoi",
+      "label": "Hà Nội"
+    },
+    {
+      "value": "Đà Nẵng",
+      "label": "Đà Nẵng"
+    },
+    {
+      "value": "Nghệ An",
+      "label": "Nghệ An"
+    },
+    {
+      "value": "Hải Phòng",
+      "label": "Hải Phòng"
+    },
+    {
+      "value": "TP HCM",
+      "label": "TP HCM"
+    }
   ],
   "loaiPhong": [
-    { "value": "VIP", "label": "VIP" },
-  { "value": "Normal", "label": "Thường" }
+    {
+      "value": "VIP",
+      "label": "VIP"
+    },
+    {
+      "value": "Normal",
+      "label": "Thường"
+    }
   ]
 }

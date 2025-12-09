@@ -1,0 +1,89 @@
+
+.aboutroom{
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.aboutroom__container{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.aboutroom__top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.aboutroom__nameAnhrate h2{
+    margin: 0;
+}
+.aboutroom__pricebutton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.aboutroom__price{
+    display: flex;
+    flex-direction: column;
+}
+.aboutroom__price span:last-child{
+    color: #FF5E1F;
+    font-weight: 700;
+    font-size: 20px;
+}
+.aboutroom__pricebutton button{
+    color: white;
+    background-color: #FF5E1F;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.aboutroom__body{
+    display: flex;
+    margin-top: 20px;
+}
+.aboutroom__box{
+    border-radius: 10px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    width: calc(100% / 3 - (30px / 3));
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+}
+.aboutroom__diem p{
+    margin: 0;
+    font-weight: 700;
+}
+.aboutroom__diem p:first-child{
+    color: #0071CE;
+    font-size: 18px;
+}
+.aboutroom__dg{
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.aboutroom__dg p{
+    margin: 0;
+}
+.aboutroom__vitri{
+    font-weight: 700;
+}
+.aboutroom__tienich{
+    font-weight: 700;
+}
+.tienich{
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}

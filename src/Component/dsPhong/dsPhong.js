@@ -26,8 +26,8 @@ function BDSList() {
     }, [])
     const handleClick = useCallback(() => {
         let urlNew = "http://localhost:3000/bds";
-        url += "?diadiem=" + queryDiaDiem;
-        url += "&typeRoom=" + queryTypeRoom;
+        urlNew += "?diadiem=" + queryDiaDiem;
+        urlNew += "&typeRoom=" + queryTypeRoom;
         setUrl(urlNew)
     })
     useEffect(() => {

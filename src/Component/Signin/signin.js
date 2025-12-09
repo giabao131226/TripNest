@@ -9,7 +9,6 @@ import { FaUserCircle, FaUserSecret } from "react-icons/fa";
 function SignIn({open,setCookie,handleCancel,handleOK}){
     const [data,setData] = useState([])
     const [user,setUser] = useState({})
-    const navigate = useNavigate();
     useEffect(() => {
         fetch("http://localhost:3000/users")
             .then(res => res.json())
@@ -41,7 +40,7 @@ function SignIn({open,setCookie,handleCancel,handleOK}){
             });
             document.cookie = `token = ${acc.token}`
             setCookie(document.cookie)
-            navigate("/")
+            handleCancel();
         }else{
             Swal.fire({
                 icon: "error",

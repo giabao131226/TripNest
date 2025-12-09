@@ -1,0 +1,31 @@
+
+.xemanh{
+    padding: 10px;
+}
+.xemanh__container{
+    display: flex;
+    flex-direction: row;
+}
+.xemanh__mainImages{
+    margin-right: 5px;
+}
+.xemanh__images{
+    display: flex;
+}
+.xemanh__images .ant-image{
+    margin-right: 5px;
+}
+.xemanh__images .ant-image:last-child::after{
+    background-color: black;
+    content: "See All Photos";
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0.6;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    padding-top: calc(50% - 10px);
+    left: 0
+}
