@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../Header/header";
+import Footer from "../Footer/footer";
 
 function PageDefault(){
     return (
@@ -10,6 +11,7 @@ function PageDefault(){
                     <div className="pd__main">
                         <Outlet />
                     </div>
+                    <Footer />
                 </div>
             </div>
         </>

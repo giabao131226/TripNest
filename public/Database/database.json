@@ -1,39 +1,12 @@
 {
   "users": [
     {
-      "id": "42df",
-      "name": "baodz2k6",
+      "id": "872d",
+      "username": "baodz2k6",
       "password": "123",
-      "email": "abc123@gmail.com",
-      "token": "bCieryQyTfoJfXn1WY8X5Dia0"
-    },
-    {
-      "id": "7f83",
-      "name": "admin123",
-      "password": "123",
-      "email": "abc123@gmail.com",
-      "token": "IDa3sBdG8MGksc7LOk6v81qlw"
-    },
-    {
-      "id": "7137",
-      "name": "test02",
-      "password": "1122334455",
-      "email": "abs@gmail.com",
-      "token": "PKesDqDtzFie6IDhhkITAg4Uv"
-    },
-    {
-      "id": "e8c8",
-      "name": "hungpham2006",
-      "password": "ruoidaibe123",
-      "email": "ruoi@gmail.com",
-      "token": "EFT3iytsFjd4NZsiDu2WiJirQ"
-    },
-    {
-      "id": "bf8a",
-      "name": "hoangAnh123",
-      "password": "123123123",
       "email": "baosom2006@gmail.com",
-      "token": "b40brxt1XZmInTssjAeqSIoeS"
+      "phone": "0974745192",
+      "token": "KQZYD5nO9npgrkP5NEtXqicaD"
     }
   ],
   "bds": [
@@ -117,33 +90,40 @@
   "diadiem": [
     {
       "value": "HaNoi",
-      "label": "Hà Nội"
+      "label": "Hà Nội",
+      "id": "ef2f"
     },
     {
       "value": "Đà Nẵng",
-      "label": "Đà Nẵng"
+      "label": "Đà Nẵng",
+      "id": "fa0c"
     },
     {
       "value": "Nghệ An",
-      "label": "Nghệ An"
+      "label": "Nghệ An",
+      "id": "85db"
     },
     {
       "value": "Hải Phòng",
-      "label": "Hải Phòng"
+      "label": "Hải Phòng",
+      "id": "24d8"
     },
     {
       "value": "TP HCM",
-      "label": "TP HCM"
+      "label": "TP HCM",
+      "id": "b7f2"
     }
   ],
   "loaiPhong": [
     {
       "value": "VIP",
-      "label": "VIP"
+      "label": "VIP",
+      "id": "8e73"
     },
     {
       "value": "Normal",
-      "label": "Thường"
+      "label": "Thường",
+      "id": "0f63"
     }
   ]
 }

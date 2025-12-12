@@ -2,6 +2,11 @@
 .recommend{
     position: relative;
 }
+.recommend__side:hover .recommend__des{
+    background-color: #859B8F;
+    color: white;
+    content: "abc";
+}
 .recommend__body{
     width: 70vw;
     padding: 20px;

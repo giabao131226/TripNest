@@ -1,3 +1,4 @@
+import Customer from "../customers/customers";
 import "./recommend.css"
 function Recommend() {
     return (
@@ -50,6 +51,7 @@ function Recommend() {
                     </div>
                 </div>
             </div>
+            <Customer />
         </>
     )
 }

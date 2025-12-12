@@ -35,7 +35,7 @@ function Header() {
     //
     const handleLogout = useCallback(() => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-        setCookie(document.cookie);
+        setCookie("");
     },[])
     const items = [
         {
@@ -52,6 +52,7 @@ function Header() {
         }
     ]
     useEffect(() => {
+        setCookie(document.cookie);
         const handleScroll = () => {
             if (window.scrollY > 200) {
                 disPatch(changeHeader(true))

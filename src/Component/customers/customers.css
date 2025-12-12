@@ -1,0 +1,70 @@
+
+.customer{
+    margin-top: 120vh;
+    background-color: #E2DDE3;
+    padding: 60px 30px;
+}
+.customer__container{
+    display: flex;
+    flex-direction: column;
+}
+.customer__title{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.customer__title svg{
+    font-size: 80px;
+}
+.customer__vienimg{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.customer__about{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.customer__vienimg img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.customer__info{
+    margin-left: 10px;
+}
+.customer__info p{
+    font-weight: 600;
+    margin: 0;
+}
+.customer__slide{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.customer__box{
+    width: calc(100% / 4);
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    position: relative;
+}
+.customer__box::after{
+    content: "\f10d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 30px;
+    position: absolute;
+    color: #3D44AA;
+    top: -10px;
+    right: 20px;
+}
+.customer__inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}

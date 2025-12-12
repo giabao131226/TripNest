@@ -1,28 +1,35 @@
 
 .signin{
-    padding: 0;
+    width: 100%;
 }
 .signin__container{
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     padding: 0;
 }
-
+/* .sigin form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+.signin input{
+    padding: 5px 10px;
+    width: 100%;
+    font-weight: 600;
+}
 .signin h1{
     text-align: center;
 }
-.signin svg{
+.signin__logo svg:first-child{
     font-size: 60px;
 }
-.signin input{
-    border: none;
-    background-color: #EBEBEB;
-    padding: 10px 20px;
-    font-weight: 600;
+.signin svg{
+    font-size: 25px;
 }
 .signin button{
-    margin-top: 20px;
+    margin-top: 0px;
     background-color: black;
     color: white;
     font-size: 16px;
@@ -30,4 +37,5 @@
     border: none;
     padding: 10px;
     border-radius: 20px;
+    cursor: pointer;
 }
