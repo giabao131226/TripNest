@@ -7,7 +7,7 @@ function ChiTiet(){
     const params = useParams()
     const [data,setData] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/bds/"+params.id)
+        fetch("https://servertripnest.onrender.com/api/bds/"+params.id)
             .then(res => res.json())
             .then(data => setData(data))
     },[])

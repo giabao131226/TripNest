@@ -25,7 +25,7 @@ function Register({ open, handleCancel }) {
       token += chars[Math.floor(Math.random() * chars.length)]
     }
     const acc = { ...e, "token": token }
-    fetch("http://localhost:3000/users", {
+    fetch("https://servertripnest.onrender.com/api/users", {
       method: "POST",
       headers: {
         Accept: "application/json",

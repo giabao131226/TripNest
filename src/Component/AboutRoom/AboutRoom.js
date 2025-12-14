@@ -16,7 +16,7 @@ function AboutRoom({ data }) {
     };
     const handleSubmit = (values) => {
         setIsModalOpen(false);
-        fetch("http://localhost:3000/bds/" + params.id, {
+        fetch("https://servertripnest.onrender.com/api/bds/" + params.id, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -35,7 +35,7 @@ function AboutRoom({ data }) {
         setIsModalOpen(false);
     };
     useEffect(() => {
-        fetch("http://localhost:3000/users?" + document.cookie)
+        fetch("https://servertripnest.onrender.com/api/users?" + document.cookie)
             .then(res => res.json())
             .then(data => {
                 setAcc(data[0])

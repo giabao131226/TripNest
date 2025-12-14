@@ -61,7 +61,7 @@ function Header() {
     ]
     useEffect(() => {
         setCookie(document.cookie);
-        fetch("http://localhost:3000/users?"+document.cookie)
+        fetch("https://servertripnest.onrender.com/api/users?"+document.cookie)
             .then(res => res.json())
             .then(data => {
                 setAcc(data[0])

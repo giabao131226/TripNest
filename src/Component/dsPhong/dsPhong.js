@@ -9,7 +9,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 const { RangePicker } = DatePicker;
 
 function BDSList() {
-    const [url, setUrl] = useState("http://localhost:3000/bds")
+    const [url, setUrl] = useState("https://servertripnest.onrender.com/api/bds")
     const [diadiem, setDiaDiem] = useState([])
     const [loaiPhong, setLoaiP] = useState([])
     const [queryDiaDiem, setQDD] = useState("HaNoi")
@@ -56,7 +56,7 @@ function BDSList() {
         setTime(soNgay)
     }, [])
     const handleClick = useCallback(() => {
-        let urlNew = "http://localhost:3000/bds";
+        let urlNew = "https://servertripnest.onrender.com/api/bds";
         urlNew += "?diadiem=" + queryDiaDiem;
         urlNew += "&typeRoom=" + queryTypeRoom;
         if (querryTime > 0) {
@@ -66,12 +66,12 @@ function BDSList() {
         navigate("/list-bds")
     })
     useEffect(() => {
-        fetch("http://localhost:3000/diadiem")
+        fetch("https://servertripnest.onrender.com/api/diadiem")
             .then(res => res.json())
             .then(data => {
                 setDiaDiem(data)
             })
-        fetch("http://localhost:3000/loaiPhong")
+        fetch("https://servertripnest.onrender.com/api/loaiPhong")
             .then(res => res.json())
             .then(data => {
                 setLoaiP(data)
