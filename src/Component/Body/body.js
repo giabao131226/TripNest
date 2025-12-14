@@ -1,5 +1,6 @@
 
 import Blog from "../Blog/blog";
+import FollowUs from "../FollowUs/followus";
 import Recommend from "../Recommend/recommend";
 import Welcome from "../Welcome/welcome";
 import "./body.css";
@@ -60,7 +61,7 @@ function Body(){
             <Welcome />
             <Recommend />
             <Blog/>
-
+            <FollowUs />
         </>
     )
 }

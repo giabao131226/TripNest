@@ -17,16 +17,24 @@ function Blog(){
                                 <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery1.jpg"></img>
                             </div>
                             <div className="blog__vienimg">
-                                <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery1.jpg"></img>
+                                <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery7.jpg"></img>
                             </div>
                         </div>
-                        <div className="blog__conlum2">
-                            <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery1.jpg"></img>
-                            <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery7.jpg"></img>
+                        <div className="blog__column2">
+                            <div className="blog__vienimg">
+                                <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery9-2.jpg"></img>
+                            </div>
+                            <div className="blog__vienimg">
+                                <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery3.jpg"></img>
+                            </div>
                         </div>
-                        <div className="blog__conlum3">
-                            <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery1.jpg"></img>
-                            <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery7.jpg"></img>
+                        <div className="blog__column3">
+                            <div className="blog__vienimg">
+                                <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery4-1.jpg"></img>
+                            </div>
+                            <div className="blog__vienimg">
+                                <img src="https://mistymount.wpenginepowered.com/wp-content/uploads/2014/01/gallery8-1.jpg"></img>
+                            </div>
                         </div>
                     </div>
                 </div>

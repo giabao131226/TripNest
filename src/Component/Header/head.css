@@ -129,8 +129,15 @@
     margin-right: 50px;
     color: #687176;
 }
-.ant-dropdown-open button{
-    
+.user__container{
+    background-color: white;
+    color: black;
+    padding: 5px 5px;
+    border-radius: 20px;
+    display: flex;
 }
-
+.user__container svg{
+    font-size: 20px;
+    padding-top: 5px;
+}
 

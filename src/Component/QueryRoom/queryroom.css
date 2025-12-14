@@ -27,3 +27,16 @@
 .bds__price button:hover{
     background-color: #0071CE;
 }
+.icon__empty{
+    color: #dfcaca;
+    font-size: 50px;
+    margin: 0;
+    text-align: center;
+}
+.text__empty{
+    color: #dfcaca;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}

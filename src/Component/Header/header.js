@@ -12,6 +12,8 @@ import Register from "../Register/register";
 import { Dropdown, Space } from 'antd';
 import { DownOutlined} from '@ant-design/icons';
 import { message } from "antd";
+import { IoPersonCircle } from "react-icons/io5";
+
 
 function Header() {
     const isActive = useSelector(state => state.changeAttHeader)
@@ -20,6 +22,7 @@ function Header() {
     const [isOMRegister, setOMRegister] = useState(false)
     const [cookie,setCookie] = useState('')
     const [messageApi,contextHolder] = message.useMessage();
+    const [acc,setAcc] = useState({})
     //Cài đặt cho modal Signin
     const openModalSI = useCallback(() => {
         setOMSignIn(true);
@@ -58,6 +61,11 @@ function Header() {
     ]
     useEffect(() => {
         setCookie(document.cookie);
+        fetch("http://localhost:3000/users?"+document.cookie)
+            .then(res => res.json())
+            .then(data => {
+                setAcc(data[0])
+            })
         const handleScroll = () => {
             if (window.scrollY > 200) {
                 disPatch(changeHeader(true))
@@ -90,8 +98,9 @@ function Header() {
                                     <div className="user__container">
                                         <Dropdown menu={{items}}>
                                             <a href = "#" onClick={e => e.preventDefault()}>
-                                                <Space>
-                                                    Account
+                                                <Space style={{color: "black"}}>
+                                                    <IoPersonCircle />
+                                                    {acc.username}
                                                     <DownOutlined />
                                                 </Space>
                                             </a>
@@ -116,7 +125,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <SignIn open={isOMSignIn} setCookie = {setCookie} handleCancel={handleCancel} />
+            <SignIn open={isOMSignIn} setCookie = {setCookie} handleCancel={handleCancel}/>
             <Register open={isOMRegister} handleCancel={handleCancel2} />
         </>
     )

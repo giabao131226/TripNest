@@ -1,21 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback,useState } from "react";
 import Swal from 'sweetalert2';
 import { Modal } from "antd";
 import "./signin.css"
-import { FaUserCircle, FaUserSecret } from "react-icons/fa";
-import { Button, Checkbox, Form, Input } from 'antd';
+import { FaUserCircle} from "react-icons/fa";
+import {Form, Input } from 'antd';
 
 
-function SignIn({ open, setCookie, handleCancel, handleOK }) {
+function SignIn({ open, setCookie, handleCancel, handleOK}) {
     const [data, setData] = useState([])
     const [user, setUser] = useState({})
-    useEffect(() => {
-        fetch("http://localhost:3000/users")
-            .then(res => res.json())
-            .then(data => {
-                setData(data)
-            })
-    }, [])
     const handleSubmit = useCallback((e) => {
         const name = e.userName;
         const password = e.password;
@@ -23,7 +16,6 @@ function SignIn({ open, setCookie, handleCancel, handleOK }) {
         fetch(`http://localhost:3000/users?username=${name}&password=${password}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 Swal.fire({
                     title: "Chúc mừng!",
                     text: "Bạn đã submit form",

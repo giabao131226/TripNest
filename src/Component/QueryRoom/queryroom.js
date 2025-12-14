@@ -5,6 +5,8 @@ import { Link} from 'react-router-dom'
 import { useOutletContext } from "react-router-dom";
 import "./queryroom.css"
 import "../dsPhong/dsPhong.css"
+import { TbMoodEmptyFilled } from "react-icons/tb";
+
 
 function QueryRoom() {
     let { url } = useOutletContext();
@@ -22,7 +24,7 @@ function QueryRoom() {
                         <img src="https://stc.shopiness.vn/deal/2018/10/16/d/f/3/c/1539673384912_540.png"></img>
                         <img src="https://img.pikbest.com/01/59/62/86jpIkbEsT2gA.jpg!f305cw"></img>
                     </div>
-                    <div className="bdsList__main">
+                    {data.length!=0 ? <div className="bdsList__main">
                         {data.map((item,index) => (
                             <div className="bdsbox" key = {index}>
                                 <div className="bdsbox__container">
@@ -63,7 +65,10 @@ function QueryRoom() {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div> : <div className="bdsList__main">
+                        <div className="icon__empty"><TbMoodEmptyFilled /></div>
+                        <p className="text__empty">Dữ liệu sẽ được cập nhật sau....</p>
+                    </div>}
                 </div>
             </div>
             

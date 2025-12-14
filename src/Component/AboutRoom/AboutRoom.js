@@ -9,6 +9,7 @@ function AboutRoom({ data }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [acc, setAcc] = useState({})
     const [form] = Form.useForm();
+    const [disableButton,setDisable] = useState(duLieu.trangThai)
     const params = useParams();
     const showModal = () => {
         setIsModalOpen(true);
@@ -26,6 +27,7 @@ function AboutRoom({ data }) {
         })
             .then(res => res.json())
             .then(data => {
+                setDisable(true)
                 console.log(data)
             });
     };
@@ -64,7 +66,7 @@ function AboutRoom({ data }) {
                                 <span>Gía/Phòng/Đêm từ</span>
                                 <span>{duLieu.price}VND</span>
                             </div>
-                            <Button onClick={showModal} disabled={duLieu.trangThai}>{duLieu.trangThai ? "Đã có người đặt" : "Đặt Phòng"}</Button>
+                            <Button onClick={showModal} disabled={disableButton}>{disableButton ? "Đã có người đặt" : "Đặt Phòng"}</Button>
                         </div>
                     </div>
                     <div className="aboutroom__body">
@@ -104,16 +106,16 @@ function AboutRoom({ data }) {
                 forceRender
             >
                 <Form form={form} onFinish={handleSubmit}>
-                    <Form.Item name="hovaten" label="Họ Và Tên" initialValue={acc.userName}>
+                    <Form.Item name="hovaten" label="Họ Và Tên" initialValue={acc.userName} rules={[{required: true,message: "Please enter your Full Name!!"}]}>
                         <Input placeholder="Họ Và Tên"></Input>
                     </Form.Item>
-                    <Form.Item name="phone" label="Nhập Số Điện Thoại" initialValue={acc.phone}>
+                    <Form.Item name="phone" label="Nhập Số Điện Thoại" initialValue={acc.phone} rules={[{required: true,message: "Please enter your Phone!!"}]}>
                         <Input type={"text"} placeholder="Số Điện Thoại"></Input>
                     </Form.Item>
-                    <Form.Item name="email" label="Nhập Email" initialValue={acc.email}>
+                    <Form.Item name="email" label="Nhập Email" initialValue={acc.email} rules={[{required: true,message: "Please enter your Email!!"}]}>
                         <Input type={"email"} placeholder="Email"></Input>
                     </Form.Item>
-                    <Form.Item name="ngaynhantra" label="Ngày Nhận/Ngày Trả">
+                    <Form.Item name="ngaynhantra" label="Ngày Nhận/Ngày Trả" rules={[{required: true,message: "Please enter your Date!!"}]}>
                         <RangePicker />
                     </Form.Item>
                     <Button htmlType="submit" className="request__button">
