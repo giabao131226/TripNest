@@ -3,6 +3,7 @@ import BDSList from "../Component/dsPhong/dsPhong";
 import ChiTiet from "../Component/HienThiChiTiet/chitiet";
 import PageDefault from "../Component/PageDefault/Pagedefault";
 import QueryRoom from "../Component/QueryRoom/queryroom";
+import RegisterBoss from "../Component/RegisterBoss/registerboss";
 
 export const routes = [
     {
@@ -26,6 +27,10 @@ export const routes = [
                         element: <ChiTiet />
                     }
                 ]
+            },
+            {
+                path: "/registerboss",
+                element: <RegisterBoss />
             }
         ]
     },

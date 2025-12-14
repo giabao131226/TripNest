@@ -7,11 +7,10 @@ function XemAnh(images){
             <div className="xemanh">
                 <div className="xemanh__container">
                     <div className = "xemanh__images">
-                        {data.map((item) => (
-                            <Image className = "image" width = {200}  src = {item}></Image>
+                        {data.map((item,index) => (
+                            <Image className = "image" width = {200}  src = {item} key = {index}></Image>
                         ))}
                     </div>
-
                 </div>
             </div>
         </>

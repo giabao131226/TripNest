@@ -1,16 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
-import { DatePicker, Space, Select, Carousel, Tag, Rate } from 'antd';
+import { DatePicker,Select} from 'antd';
 import { IoLocation } from "react-icons/io5";
-import { FaHotel, FaLocationArrow } from "react-icons/fa6";
-import LocaleProvider from "antd/es/locale";
 import { IoSearch } from "react-icons/io5";
-import { MdDateRange, MdOutlineDateRange } from "react-icons/md";
+import { MdDateRange} from "react-icons/md";
 import "./dsPhong.css"
 import SlideUuDai from "../slideUuDai/SlideUuDai";
-import {Link, Outlet} from 'react-router-dom'
+import {Outlet} from 'react-router-dom'
 const { RangePicker } = DatePicker;
-
-
 
 function BDSList() {
     const [url, setUrl] = useState("http://localhost:3000/bds")

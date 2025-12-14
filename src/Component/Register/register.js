@@ -12,7 +12,6 @@ function Register({ open, handleCancel }) {
     const { name, value } = e.target;
     setAccount(prev => ({ ...prev, [name]: value }));
   };
-
   const handleSubmit = (e) => {
     const chars = [
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -36,6 +35,7 @@ function Register({ open, handleCancel }) {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         Swal.fire({
           title: "Chúc mừng!",
           text: "Bạn đã submit form",
@@ -59,7 +59,7 @@ function Register({ open, handleCancel }) {
           <input type="email" name="email" placeholder = "Nhập email" onChange={handleChange} />
           <button type="submit">Đăng Ký</button>
         </form> */}
-          <Form onFinish={handleSubmit}>
+          <Form onFinish={handleSubmit} onSubmit = {(e) => e.preventDefault()}>
             <Form.Item label="Username"
               name={"username"}
               rules={[{ required: true, message: 'Please input your username!' }]}
@@ -85,7 +85,7 @@ function Register({ open, handleCancel }) {
             >
               <Input placeholder="Input you phone number"></Input>
             </Form.Item>
-            <button type="submit">Đăng Ký</button>
+            <button htmlType="submit">Đăng Ký</button>
           </Form>
         </div>
       </div>

@@ -1,9 +1,10 @@
 
+import Blog from "../Blog/blog";
 import Recommend from "../Recommend/recommend";
+import Welcome from "../Welcome/welcome";
 import "./body.css";
 import { Carousel } from 'antd';
 import { Link } from "react-router-dom";
-import { Button } from "antd/es/radio";
 
 function Body(){
     const onChange = currentSlide => {
@@ -19,15 +20,6 @@ function Body(){
             element[1].classList.remove("open2")
         },6000)
     }
-  const contentStyle = {
-  margin: 0,
-  height: '160px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-
     return (
         <>
             <div className="body">
@@ -65,7 +57,10 @@ function Body(){
                     </div>
                 </div>
             </div>
+            <Welcome />
             <Recommend />
+            <Blog/>
+
         </>
     )
 }

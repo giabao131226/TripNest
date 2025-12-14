@@ -1,0 +1,29 @@
+
+.bdsList__container{
+    display: flex;
+    flex-direction: row;
+}
+.bdsList__main{
+    width: 943px;
+}
+.bdsbox{
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.bdsbox:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.quangcao{
+    flex: 1;
+}
+.quangcao img{
+    width: 310px;
+    object-fit: cover;
+}
+.bds__price button{
+    cursor: pointer;
+}
+.bds__price button:hover{
+    background-color: #0071CE;
+}

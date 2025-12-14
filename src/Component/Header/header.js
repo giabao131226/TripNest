@@ -2,7 +2,7 @@ import avatar from "../../assets/img/Logo-final.PNG"
 import { CiDiscount1 } from "react-icons/ci";
 import { IoMdPerson } from "react-icons/io";
 import "./head.css";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react"
 import { changeHeader } from "../actions/actions"
@@ -10,7 +10,8 @@ import { Button } from "antd"
 import SignIn from "../Signin/signin";
 import Register from "../Register/register";
 import { Dropdown, Space } from 'antd';
-import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+import { DownOutlined} from '@ant-design/icons';
+import { message } from "antd";
 
 function Header() {
     const isActive = useSelector(state => state.changeAttHeader)
@@ -18,6 +19,7 @@ function Header() {
     const [isOMSignIn, setOMSignIn] = useState(false)
     const [isOMRegister, setOMRegister] = useState(false)
     const [cookie,setCookie] = useState('')
+    const [messageApi,contextHolder] = message.useMessage();
     //Cài đặt cho modal Signin
     const openModalSI = useCallback(() => {
         setOMSignIn(true);
@@ -37,14 +39,17 @@ function Header() {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         setCookie("");
     },[])
+    const handleClickHistory = useCallback(() => {
+        messageApi.info("Tính năng sẽ được cập nhật sau!!")
+    },[])
     const items = [
         {
             key: '1',
-            label: (<p>Khách Hàng</p>)
+            label: (<button onClick={handleClickHistory}>Lịch Sử Đặt Phòng</button>)
         },
         {
             key: '2',
-            label: (<p>Chủ Cơ Sở</p>)
+            label: (<Link to = {"/registerboss"}><p>Chủ Cơ Sở</p></Link>)
         },
         {
             key: '3',
@@ -66,6 +71,7 @@ function Header() {
     }, []);
     return (
         <>
+            {contextHolder}
             <div className={isActive ? "header2" : "header"}>
                 <div className={isActive ? "header2__container" : "header__container"}>
                     <div className={isActive ? "header2__tool" : "header__tool"}>
@@ -83,7 +89,7 @@ function Header() {
                                 {cookie != "" ? <div className="user">
                                     <div className="user__container">
                                         <Dropdown menu={{items}}>
-                                            <a onClick={e => e.preventDefault()}>
+                                            <a href = "#" onClick={e => e.preventDefault()}>
                                                 <Space>
                                                     Account
                                                     <DownOutlined />

@@ -19,9 +19,11 @@ function SignIn({ open, setCookie, handleCancel, handleOK }) {
     const handleSubmit = useCallback((e) => {
         const name = e.userName;
         const password = e.password;
-        fetch(`http://localhost:3000/users?name=${name}&password=${password}`)
+        console.log(`http://localhost:3000/users?name=${name}&password=${password}`)
+        fetch(`http://localhost:3000/users?username=${name}&password=${password}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 Swal.fire({
                     title: "Chúc mừng!",
                     text: "Bạn đã submit form",

@@ -1,0 +1,28 @@
+.welcome{
+    padding: 50px;
+    margin-bottom: 30px;
+}
+.welcome__title{
+    text-align: center;
+}
+.welcome__imgs{
+    display: flex;
+    justify-content: center;
+}
+.welcome__img{
+    width: 400px;
+    height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0 20px;
+}
+.welcome__img:hover img{
+    transform: scale(0.9);
+}
+.welcome__img img{
+    width: 400px;
+    height: 250px;
+    object-fit: cover;
+    transition: all 1000ms ease;
+    border-radius: 20px;
+}
