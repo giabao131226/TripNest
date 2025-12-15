@@ -10,7 +10,7 @@ import { Button } from "antd"
 import SignIn from "../Signin/signin";
 import Register from "../Register/register";
 import { Dropdown, Space } from 'antd';
-import { DownOutlined} from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import { message } from "antd";
 import { IoPersonCircle } from "react-icons/io5";
 
@@ -20,10 +20,10 @@ function Header() {
     const disPatch = useDispatch();
     const [isOMSignIn, setOMSignIn] = useState(false)
     const [isOMRegister, setOMRegister] = useState(false)
-    const [cookie,setCookie] = useState('')
-    const [messageApi,contextHolder] = message.useMessage();
-    const [acc,setAcc] = useState({})
-    const [reload,setReload] = useState(false)
+    const [cookie, setCookie] = useState('')
+    const [messageApi, contextHolder] = message.useMessage();
+    const [acc, setAcc] = useState({})
+    const [reload, setReload] = useState(false)
     //Cài đặt cho modal Signin
     const openModalSI = useCallback(() => {
         setOMSignIn(true);
@@ -40,38 +40,42 @@ function Header() {
     }, [])
     const handleReload = useCallback(() => {
         setReload(!reload)
-    },[])
+    }, [])
     //
     const handleLogout = useCallback(() => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         setCookie("");
-    },[])
+    }, [])
     const handleClickHistory = useCallback(() => {
         messageApi.info("Tính năng sẽ được cập nhật sau!!")
-    },[])
+    }, [])
     const items = [
         {
             key: '1',
-            label: (<button onClick={handleClickHistory}>Lịch Sử Đặt Phòng</button>)
+            label: (<button onClick={handleClickHistory}>Thông Báo</button>)
         },
         {
             key: '2',
-            label: (<Link to = {"/registerboss"}><p>Chủ Cơ Sở</p></Link>)
+            label: (<button onClick={handleClickHistory}>Quản Lý Tài Khoản</button>)
         },
         {
             key: '3',
-            label: (<button onClick={handleLogout}>Đăng Xuất</button>)
+            label: (<button onClick={handleClickHistory}>Lịch Sử Đặt Phòng</button>)
+        },
+        {
+            key: '4',
+            label: (<button onClick={handleLogout} className="button__logout">Đăng Xuất</button>)
         }
     ]
     useEffect(() => {
-        console.log(document.cookie)
-        setCookie(document.cookie);
-        fetch("https://servertripnest.onrender.com/api/users?"+document.cookie)
+        if(document.cookie!=""){
+            fetch("https://servertripnest.onrender.com/api/users?" + document.cookie)
             .then(res => res.json())
             .then(data => {
                 console.log(data[0])
                 setAcc(data[0])
             })
+        }
         const handleScroll = () => {
             if (window.scrollY > 200) {
                 disPatch(changeHeader(true))
@@ -94,32 +98,32 @@ function Header() {
                                 <img src={avatar}></img>
                             </div>
                         </Link>
-                        <ul className={isActive ? "header2__toolMain" : "header__toolMain"}>
-                            <li><CiDiscount1 /> Khuyễn mãi</li>
-                            <li>Hỗ Trợ</li>
-                            <li>Hợp tác với chúng tôi</li>
-                            <li>Đặt chỗ</li>
-                            <li>
-                                {cookie != "" ? <div className="user">
-                                    <div className="user__container">
-                                        <Dropdown menu={{items}}>
-                                            <a href = "#" onClick={e => e.preventDefault()}>
-                                                <Space style={{color: "black"}}>
-                                                    <IoPersonCircle />
-                                                    {acc.username}
-                                                    <DownOutlined />
-                                                </Space>
-                                            </a>
-                                        </Dropdown>
-                                    </div>
-                                </div> : <>
-                                    <Button type="primary" onClick={openModalSI}><IoMdPerson /> Đăng Nhập</Button>
-                                    <Button type="primary" onClick={openModalRegister}>Đăng Ký</Button>
-                                </>}
-                            </li>
-                        </ul>
+                        <div className={isActive ? "header2__toolMain" : "header__toolMain"}>
+                            <ul>
+                                <Link to = {"/"}><li>Trang Chủ</li></Link>
+                                <li>Phòng</li>
+                                <Link to = {"/registerboss"}><li>Danh Sách BĐS của bạn</li></Link>
+                            </ul>
+                            {cookie != "" ? <div className="user">
+                                <div className="user__container">
+                                    <Dropdown menu={{ items }}>
+                                        <a href="#" onClick={e => e.preventDefault()}>
+                                            <Space style={{ color: "black" }}>
+                                                <IoPersonCircle />
+                                                {acc.username}
+                                                <DownOutlined />
+                                            </Space>
+                                        </a>
+                                    </Dropdown>
+                                </div>
+                            </div> : <div className="header__button">
+                                <Button type="primary" onClick={openModalSI}><IoMdPerson /> Đăng Nhập</Button>
+                                <Button type="primary" onClick={openModalRegister}>Đăng Ký</Button>
+                            </div>}
+
+                        </div>
                     </div>
-                    <div className={isActive ? "header2__main" : "header__main"}>
+                    {/* <div className={isActive ? "header2__main" : "header__main"}>
                         <ul>
                             <li>HomeStay</li>
                             <li>Villa</li>
@@ -128,10 +132,10 @@ function Header() {
                             <li>Hoạt dộng & Vui chơi</li>
                             <li>Cẩm nang du lịch</li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             </div>
-            <SignIn open={isOMSignIn} setCookie = {setCookie} handleCancel={handleCancel} setAcc = {setAcc}/>
+            <SignIn open={isOMSignIn} setCookie={setCookie} handleCancel={handleCancel} setAcc={setAcc} />
             <Register open={isOMRegister} handleCancel={handleCancel2} />
         </>
     )

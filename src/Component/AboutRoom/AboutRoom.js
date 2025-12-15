@@ -1,4 +1,4 @@
-import { Rate, Tag, Button, Modal, Form, Input, DatePicker} from "antd";
+import { Rate, Tag, Button, Modal, Form, Input, DatePicker,message} from "antd";
 import "./AboutRoom.css"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -6,10 +6,20 @@ const { RangePicker } = DatePicker;
 
 function AboutRoom({ data ,disableButton,setDisable}) {
     const duLieu = data;
+    const [messageApi,contextHolder] = message.useMessage()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [acc, setAcc] = useState({})
     const [form] = Form.useForm();
     const params = useParams();
+    const checkModal = () => {
+        if(document.cookie!="") setIsModalOpen(true);
+        else{
+            messageApi.open({
+                "type":"error",
+                "content": "Xin vui lòng đăng nhập tài khoản để đặt được phòng!"
+            })
+        }
+    }
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -50,6 +60,7 @@ function AboutRoom({ data ,disableButton,setDisable}) {
     }, [acc, form]);
     return (
         <>
+            {contextHolder}
             <div className="aboutroom">
                 <div className="aboutroom__container">
                     <div className="aboutroom__top">
@@ -65,7 +76,7 @@ function AboutRoom({ data ,disableButton,setDisable}) {
                                 <span>Gía/Phòng/Đêm từ</span>
                                 <span>{duLieu.price}VND</span>
                             </div>
-                            <Button onClick={showModal} disabled={disableButton}>{disableButton ? "Đã có người đặt" : "Đặt Phòng"}</Button>
+                            <Button onClick={checkModal} disabled={disableButton}>{disableButton ? "Đã có người đặt" : "Đặt Phòng"}</Button>
                         </div>
                     </div>
                     <div className="aboutroom__body">

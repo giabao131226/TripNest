@@ -4,6 +4,7 @@ import ChiTiet from "../Component/HienThiChiTiet/chitiet";
 import PageDefault from "../Component/PageDefault/Pagedefault";
 import QueryRoom from "../Component/QueryRoom/queryroom";
 import RegisterBoss from "../Component/RegisterBoss/registerboss";
+import Terms from "../Component/terms/terms";
 
 export const routes = [
     {
@@ -31,6 +32,10 @@ export const routes = [
             {
                 path: "/registerboss",
                 element: <RegisterBoss />
+            },
+            {
+                path: "/terms",
+                element: <Terms/>
             }
         ]
     },

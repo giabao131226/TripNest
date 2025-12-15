@@ -3,6 +3,8 @@
     width: 100vw;
     top: 0;
     z-index: 1000;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
 }
 .header a{
     text-decoration: none;
@@ -15,7 +17,6 @@
 }
 .header__tool{
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 .header__logo{
@@ -34,7 +35,6 @@
     list-style-type: none;
     font-size: 16px;
     font-weight: 600;
-    margin: 0;
 }
 .header__tool li{
     margin-left: 50px;
@@ -68,10 +68,6 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.header__main li{
-    margin-right: 50px;
-    color: white;
-}
 .header2{
     background-color: white;
     position: fixed;
@@ -90,7 +86,6 @@
 }
 .header2__tool{
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 .header2 ul{
@@ -99,10 +94,9 @@
     list-style-type: none;
     font-size: 16px;
     font-weight: 600;
-    margin: 0;
 }
 .header2__tool li{
-    margin-left: 50px;
+    margin-right: 50px;
 }
 .header2__tool button{
     font-weight: 600;
@@ -122,13 +116,6 @@
     border: none;
     margin-left: 10px;
 }
-.header2__main{
-    padding-top: 20px;
-}
-.header2__main li{
-    margin-right: 50px;
-    color: #687176;
-}
 .user__container{
     background-color: white;
     color: black;
@@ -140,4 +127,27 @@
     font-size: 20px;
     padding-top: 5px;
 }
-
+.header__button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+.header2__toolMain{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+.header__toolMain{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+.button__logout{
+    color: red;
+    border: none;
+    background-color: white;
+    width: 100%;
+}

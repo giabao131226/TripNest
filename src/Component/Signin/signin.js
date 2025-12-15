@@ -4,6 +4,7 @@ import { Modal } from "antd";
 import "./signin.css"
 import { FaUserCircle} from "react-icons/fa";
 import {Form, Input } from 'antd';
+import Link from "antd/es/typography/Link";
 
 
 function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
@@ -53,12 +54,13 @@ function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
                             <input type="password" name="password" placeholder="Nhập Mật Khẩu" onChange={handleChange}></input>
                             <button>Đăng Nhập</button>
                         </form> */}
-                        <Form labelCol={{ span: 7 }}
+                        <Form labelCol={{ span: 8 }}
                             wrapperCol={{ span: 32 }}
                             style={{ maxWidth: 1000 }}
                             onFinish={handleSubmit}
                             >
                             <Form.Item
+                                layout="vertical"
                                 label = "Username"
                                 name="userName"
                                 rules={[{ required: true, message: 'Please input your username!' }]}
@@ -66,6 +68,7 @@ function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
                                 <Input placeholder="Input your username" />
                             </Form.Item>
                             <Form.Item
+                                layout="vertical"
                                 label = "Password"
                                 name="password"
                                 rules={[{ required: true, message: 'Please input your password!' }]}
@@ -74,6 +77,12 @@ function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
                             </Form.Item>
                                 <button>Đăng Nhập</button>
                         </Form>
+                        <hr></hr>
+                        <div className="signin__rule">
+                            <p>By signing in or creating an account, you agree with out <Link to ={"/terms"}>Terms & Conditions</Link> and <Link to ={"/terms"}>Privacy Statement</Link></p>
+                            <p>All rights reserved</p>
+                            <p>Copy right (2025-2026) - Tripnest</p>
+                        </div>
                     </div>
                 </div>
             </Modal>

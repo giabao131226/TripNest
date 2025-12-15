@@ -52,7 +52,6 @@ function BDSList() {
             return parseInt(item)
         });
         let soNgay = getSoNgay(startDate, endDate)
-        console.log(soNgay)
         setTime(soNgay)
     }, [])
     const handleClick = useCallback(() => {
@@ -113,7 +112,7 @@ function BDSList() {
                             <div className="search__box">
                                 <Select
                                     className="box"
-                                    defaultValue="VIP"
+                                    defaultValue="Villa"
                                     style={{ width: 298, height: 70, fontSize: 18, fontWeight: 700, borderRadius: 0 }}
                                     onChange={TDLoaiPhong}
                                     options={loaiPhong}
