@@ -45,6 +45,7 @@ function Header() {
     const handleLogout = useCallback(() => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         setCookie("");
+        handleReload();
     }, [])
     const handleClickHistory = useCallback(() => {
         messageApi.info("Tính năng sẽ được cập nhật sau!!")
@@ -68,13 +69,15 @@ function Header() {
         }
     ]
     useEffect(() => {
-        if(document.cookie!=""){
-            fetch("https://servertripnest.onrender.com/api/users?" + document.cookie)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data[0])
-                setAcc(data[0])
-            })
+        const currentCookie = document.cookie;
+        if (currentCookie) {
+            setCookie(currentCookie);
+
+            fetch("https://servertripnest.onrender.com/api/users?" + currentCookie)
+                .then(res => res.json())
+                .then(data => {
+                    setAcc(data[0]);
+                });
         }
         const handleScroll = () => {
             if (window.scrollY > 200) {
@@ -100,9 +103,9 @@ function Header() {
                         </Link>
                         <div className={isActive ? "header2__toolMain" : "header__toolMain"}>
                             <ul>
-                                <Link to = {"/"}><li>Trang Chủ</li></Link>
+                                <Link to={"/"}><li>Trang Chủ</li></Link>
                                 <li>Phòng</li>
-                                <Link to = {"/registerboss"}><li>Danh Sách BĐS của bạn</li></Link>
+                                <Link to={"/registerboss"}><li>Danh Sách BĐS của bạn</li></Link>
                             </ul>
                             {cookie != "" ? <div className="user">
                                 <div className="user__container">
