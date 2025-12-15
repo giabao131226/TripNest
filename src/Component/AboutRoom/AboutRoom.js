@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 const { RangePicker } = DatePicker;
 
-function AboutRoom({ data }) {
+function AboutRoom({ data ,disableButton,setDisable}) {
     const duLieu = data;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [acc, setAcc] = useState({})
     const [form] = Form.useForm();
-    const [disableButton,setDisable] = useState(duLieu.trangThai)
     const params = useParams();
     const showModal = () => {
         setIsModalOpen(true);
@@ -28,13 +27,13 @@ function AboutRoom({ data }) {
             .then(res => res.json())
             .then(data => {
                 setDisable(true)
-                console.log(data)
             });
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
     useEffect(() => {
+        setDisable(duLieu.trangThai)
         fetch("https://servertripnest.onrender.com/api/users?" + document.cookie)
             .then(res => res.json())
             .then(data => {

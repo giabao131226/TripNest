@@ -23,6 +23,7 @@ function Header() {
     const [cookie,setCookie] = useState('')
     const [messageApi,contextHolder] = message.useMessage();
     const [acc,setAcc] = useState({})
+    const [reload,setReload] = useState(false)
     //Cài đặt cho modal Signin
     const openModalSI = useCallback(() => {
         setOMSignIn(true);
@@ -37,6 +38,9 @@ function Header() {
     const handleCancel2 = useCallback(() => {
         setOMRegister(false)
     }, [])
+    const handleReload = useCallback(() => {
+        setReload(!reload)
+    },[])
     //
     const handleLogout = useCallback(() => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
@@ -60,10 +64,12 @@ function Header() {
         }
     ]
     useEffect(() => {
+        console.log(document.cookie)
         setCookie(document.cookie);
         fetch("https://servertripnest.onrender.com/api/users?"+document.cookie)
             .then(res => res.json())
             .then(data => {
+                console.log(data[0])
                 setAcc(data[0])
             })
         const handleScroll = () => {
@@ -125,7 +131,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <SignIn open={isOMSignIn} setCookie = {setCookie} handleCancel={handleCancel}/>
+            <SignIn open={isOMSignIn} setCookie = {setCookie} handleCancel={handleCancel} setAcc = {setAcc}/>
             <Register open={isOMRegister} handleCancel={handleCancel2} />
         </>
     )

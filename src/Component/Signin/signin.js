@@ -6,16 +6,16 @@ import { FaUserCircle} from "react-icons/fa";
 import {Form, Input } from 'antd';
 
 
-function SignIn({ open, setCookie, handleCancel, handleOK}) {
+function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
     const [data, setData] = useState([])
     const [user, setUser] = useState({})
     const handleSubmit = useCallback((e) => {
         const name = e.userName;
         const password = e.password;
-        console.log(`https://servertripnest.onrender.com/api/users?name=${name}&password=${password}`)
         fetch(`https://servertripnest.onrender.com/api/users?username=${name}&password=${password}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 Swal.fire({
                     title: "Chúc mừng!",
                     text: "Bạn đã submit form",
@@ -23,6 +23,7 @@ function SignIn({ open, setCookie, handleCancel, handleOK}) {
                 });
                 document.cookie = `token = ${data[0].token}`
                 setCookie(document.cookie)
+                setAcc(data[0])
                 handleCancel();
             })
             .catch(data => {
