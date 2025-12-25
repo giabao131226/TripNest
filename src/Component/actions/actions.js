@@ -5,3 +5,9 @@ export const changeHeader = (tt) =>{
         att: tt
     }
 }
+export const setInfo = (info) => {
+    return {
+        type: "SETID",
+        "thongTin": info
+    }
+}

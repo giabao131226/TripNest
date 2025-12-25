@@ -40,3 +40,7 @@
     margin: 0;
     text-align: center;
 }
+.bds__danhGia{
+    height: 130px;
+    overflow: scroll;
+}

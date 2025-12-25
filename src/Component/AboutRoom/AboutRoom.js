@@ -1,21 +1,22 @@
-import { Rate, Tag, Button, Modal, Form, Input, DatePicker,message} from "antd";
+import { Rate, Tag, Button, Modal, Form, Input, DatePicker, message, Select, QRCode } from "antd";
 import "./AboutRoom.css"
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 const { RangePicker } = DatePicker;
 
-function AboutRoom({ data ,disableButton,setDisable}) {
+function AboutRoom({ data,disableButton, setDisable }) {
     const duLieu = data;
-    const [messageApi,contextHolder] = message.useMessage()
+    const [messageApi, contextHolder] = message.useMessage()
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [acc, setAcc] = useState({})
+    const [acc, setAcc] = useState(JSON.parse(localStorage.getItem("user")))
     const [form] = Form.useForm();
     const params = useParams();
+    const [pttt, setPTTT] = useState("trucTiep")
     const checkModal = () => {
-        if(document.cookie!="") setIsModalOpen(true);
-        else{
+        if (document.cookie != "") setIsModalOpen(true);
+        else {
             messageApi.open({
-                "type":"error",
+                "type": "error",
                 "content": "Xin vui lòng đăng nhập tài khoản để đặt được phòng!"
             })
         }
@@ -25,7 +26,16 @@ function AboutRoom({ data ,disableButton,setDisable}) {
     };
     const handleSubmit = (values) => {
         setIsModalOpen(false);
-        fetch("https://servertripnest.onrender.com/api/bds/" + params.id, {
+        const ngayNhan = values.ngaynhantra[0].format("YYYY-MM-DD");
+        const ngayTra = values.ngaynhantra[1].format("YYYY-MM-DD");
+        const newDatPhong = {
+            "idNguoiDat": acc.id,
+            "idPhong": params.id,
+            "ngayDat": ngayNhan,
+            "ngayTra": ngayTra,
+            "pttt": values.pttt
+        }
+        fetch("http://localhost:3000/phong/" + params.id, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -35,16 +45,28 @@ function AboutRoom({ data ,disableButton,setDisable}) {
             })
         })
             .then(res => res.json())
+            .then(data => {setDisable(true)});
+        fetch("http://localhost:3000/datPhong",{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(newDatPhong)
+        })
+            .then(res => res.json())
             .then(data => {
-                setDisable(true)
-            });
+                messageApi.open({
+                    "type": "success",
+                    "content": "Chúc mừng bạn đã đặt phòng thành công"
+                })
+            })
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
     useEffect(() => {
         setDisable(duLieu.trangThai)
-        fetch("https://servertripnest.onrender.com/api/users?" + document.cookie)
+        fetch("http://localhost:3000/taiKhoan?" + document.cookie)
             .then(res => res.json())
             .then(data => {
                 setAcc(data[0])
@@ -58,6 +80,9 @@ function AboutRoom({ data ,disableButton,setDisable}) {
             });
         }
     }, [acc, form]);
+    const handleChange = useCallback((e) => {
+        setPTTT(e)
+    }, [])
     return (
         <>
             {contextHolder}
@@ -67,14 +92,14 @@ function AboutRoom({ data ,disableButton,setDisable}) {
                         <div className="aboutroom__nameAndrate">
                             <h2>{duLieu.title}</h2>
                             <div className="aboutroom__rateAndtype">
-                                <Tag style={{ fontWeight: 600, fontSize: 13 }} key={duLieu.type}>{duLieu.type}</Tag>
+                                <Tag style={{ fontWeight: 600, fontSize: 13 }} key={duLieu.loai}>{duLieu.loai}</Tag>
                                 <Rate value={duLieu.rate} allowHalf></Rate>
                             </div>
                         </div>
                         <div className="aboutroom__pricebutton">
                             <div className="aboutroom__price">
                                 <span>Gía/Phòng/Đêm từ</span>
-                                <span>{duLieu.price}VND</span>
+                                <span>{duLieu.gia}VND</span>
                             </div>
                             <Button onClick={checkModal} disabled={disableButton}>{disableButton ? "Đã có người đặt" : "Đặt Phòng"}</Button>
                         </div>
@@ -85,13 +110,8 @@ function AboutRoom({ data ,disableButton,setDisable}) {
                                 <p>{duLieu?.rateper10}/10</p>
                                 <p>Khách nói gì về kỳ nghỉ của họ</p>
                             </div>
-                            <div className="aboutroom__danhGia">
-                                {duLieu.danhGiaNoiBat?.map((item, index) => (
-                                    <div key={index} className="aboutroom__dg">
-                                        <p>{item.name}</p>
-                                        <p>{item.danhGia}</p>
-                                    </div>
-                                ))}
+                            <div className="aboutroom__moTa">
+                                {duLieu.mota}
                             </div>
                         </div>
                         <div className="aboutroom__box">
@@ -100,8 +120,8 @@ function AboutRoom({ data ,disableButton,setDisable}) {
                         </div>
                         <div className="aboutroom__box">
                             <p className="aboutroom__tienich">Tiện ích chính</p>
-                            {duLieu.tienich?.map((item, index) => (
-                                <p key={index} className="tienich">{item}</p>
+                            {duLieu.tienIch?.map((item, index) => (
+                                <p key={index} className="tienich">{item.tienich}</p>
                             ))}
                         </div>
                     </div>
@@ -116,18 +136,33 @@ function AboutRoom({ data ,disableButton,setDisable}) {
                 forceRender
             >
                 <Form form={form} onFinish={handleSubmit}>
-                    <Form.Item name="hovaten" label="Họ Và Tên" initialValue={acc.userName} rules={[{required: true,message: "Please enter your Full Name!!"}]}>
+                    <Form.Item name="hovaten" label="Họ Và Tên" initialValue={acc.userName} rules={[{ required: true, message: "Please enter your Full Name!!" }]}>
                         <Input placeholder="Họ Và Tên"></Input>
                     </Form.Item>
-                    <Form.Item name="phone" label="Nhập Số Điện Thoại" initialValue={acc.phone} rules={[{required: true,message: "Please enter your Phone!!"}]}>
+                    <Form.Item name="phone" label="Nhập Số Điện Thoại" initialValue={acc.phone} rules={[{ required: true, message: "Please enter your Phone!!" }]}>
                         <Input type={"text"} placeholder="Số Điện Thoại"></Input>
                     </Form.Item>
-                    <Form.Item name="email" label="Nhập Email" initialValue={acc.email} rules={[{required: true,message: "Please enter your Email!!"}]}>
+                    <Form.Item name="email" label="Nhập Email" initialValue={acc.email} rules={[{ required: true, message: "Please enter your Email!!" }]}>
                         <Input type={"email"} placeholder="Email"></Input>
                     </Form.Item>
-                    <Form.Item name="ngaynhantra" label="Ngày Nhận/Ngày Trả" rules={[{required: true,message: "Please enter your Date!!"}]}>
+                    <Form.Item name="ngaynhantra" label="Ngày Nhận/Ngày Trả" rules={[{ required: true, message: "Please enter your Date!!" }]}>
                         <RangePicker />
                     </Form.Item>
+                    <Form.Item name="pttt" label="Phương Thức Thanh Toán" rules={[{ required: true, message: "Please enter your Date!!" }]}>
+                        <Select
+                            onChange={handleChange}
+                            defaultValue={"Thanh toán khi đến nhận phòng"}
+                            options={[
+                                { value: "trucTiep", label: "Thanh toán khi đến nhận phòng" },
+                                { value: "qr", label: "Quét mã QR" },
+                                { value: "viTraSau", label: "Ví trả sau" },
+                            ]}>
+                        </Select>
+                    </Form.Item>
+                    <div className="pttt">
+                        {pttt == "qr" ? (<QRCode value="https://ant.design/"></QRCode>) : ((<p>Bạn chọn phương thức thanh toán trực tiếp</p>))}
+                    </div>
+
                     <Button htmlType="submit" className="request__button">
                         Xác Nhận
                     </Button>

@@ -6,7 +6,7 @@ import { Form, Modal, Input, message } from "antd";
 import { FaRegFaceSmileBeam } from "react-icons/fa6";
 
 
-function Register({ open, handleCancel }) {
+function Register({ open, handleCancel ,openModalSI,handleCancel2}) {
   const [account, setAccount] = useState({});
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +25,7 @@ function Register({ open, handleCancel }) {
       token += chars[Math.floor(Math.random() * chars.length)]
     }
     const acc = { ...e, "token": token }
-    fetch("https://servertripnest.onrender.com/api/users", {
+    fetch("http://localhost:3000/taiKhoan", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -35,12 +35,8 @@ function Register({ open, handleCancel }) {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        Swal.fire({
-          title: "Chúc mừng!",
-          text: "Bạn đã submit form",
-          icon: "success"
-          });
+        openModalSI();
+        handleCancel2();
       })
   }
 
@@ -50,40 +46,31 @@ function Register({ open, handleCancel }) {
         <div className="signin__container">
           <FaRegFaceSmileBeam />
           <h1>Đăng Ký</h1>
-          {/* <form onSubmit={handleSubmit}>
-          <label>Họ Và Tên</label>
-          <input type="text" name="name" placeholder = "Nhập tên người dùng"onChange={handleChange} />
-          <label>Mật Khẩu</label>
-          <input type="password" name="password" placeholder = "Nhập Mật Khẩu"onChange={handleChange} />
-          <label>Email</label>
-          <input type="email" name="email" placeholder = "Nhập email" onChange={handleChange} />
-          <button type="submit">Đăng Ký</button>
-        </form> */}
           <Form onFinish={handleSubmit} onSubmit = {(e) => e.preventDefault()}>
             <Form.Item label="Username"
               name={"username"}
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              rules={[{ required: true, message: 'Không được bỏ trống tên đăng nhập!' }]}
             >
-              <Input name={"username"} placeholder="Input your username"></Input>
+              <Input name={"username"} placeholder="Nhập tên đăng nhập"></Input>
             </Form.Item>
             <Form.Item label="Password"
               name={"password"}
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[{ required: true, message: 'Không được bỏ trống mật khẩu!' }]}
             >
-              <Input.Password placeholder="Input your password"></Input.Password>
+              <Input.Password placeholder="Nhập mật khẩu"></Input.Password>
             </Form.Item>
             <Form.Item label="Email"
               name={"email"}
-              rules={[{ required: true, message: 'Please input your email!' }]}
+              rules={[{ required: true, message: 'Không được bỏ trống email!' }]}
             >
-              <Input placeholder="Input your email" type={"email"}></Input>
+              <Input placeholder="Nhập email" type={"email"}></Input>
             </Form.Item>
             <Form.Item
               label="Phone"
               name={"phone"}
-              rules = {[{required: true,message: 'Please input your phone number'}]}
+              rules = {[{required: true,message: 'Không được bỏ trống số điện thoại'}]}
             >
-              <Input placeholder="Input you phone number"></Input>
+              <Input placeholder="Nhập số điện thoại"></Input>
             </Form.Item>
             <button htmlType="submit">Đăng Ký</button>
           </Form>

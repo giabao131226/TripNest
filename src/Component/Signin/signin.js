@@ -5,29 +5,34 @@ import "./signin.css"
 import { FaUserCircle} from "react-icons/fa";
 import {Form, Input } from 'antd';
 import Link from "antd/es/typography/Link";
+import { useSelector,useDispatch } from "react-redux";
+import { setInfo } from "../actions/actions";
 
 
 function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
     const [data, setData] = useState([])
     const [user, setUser] = useState({})
+    const acc = useSelector(state => state.getInfo)
+    const dispatch = useDispatch()
     const handleSubmit = useCallback((e) => {
         const name = e.userName;
         const password = e.password;
-        fetch(`https://servertripnest.onrender.com/api/users?username=${name}&password=${password}`)
+        fetch(`http://localhost:3000/taiKhoan?username=${name}&password=${password}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                Swal.fire({
-                    title: "Chúc mừng!",
-                    text: "Bạn đã submit form",
-                    icon: "success"
-                });
                 document.cookie = `token = ${data[0].token}`
                 setCookie(document.cookie)
                 setAcc(data[0])
                 handleCancel();
+                localStorage.setItem("user", JSON.stringify(data[0]));
+                dispatch(setInfo(data[0]))
+                Swal.fire({
+                    icon: "success",
+                    title: "Chúc mừng",
+                    text: "Chúc mừng bạn đã đăng nhập thành công"
+                });
             })
-            .catch(data => {
+            .catch(err => {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -47,13 +52,6 @@ function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
                     <div className="signin__container">
                         <div className="signin__logo"><FaUserCircle /></div>
                         <h1>Đăng Nhập</h1>
-                        {/* <form onSubmit={handleSubmit}>
-                            <label>Tên Người Dùng</label>
-                            <input type="text" name="userName" placeholder="Nhập tên người dùng" onChange={handleChange}></input>
-                            <label>Mật Khẩu</label>
-                            <input type="password" name="password" placeholder="Nhập Mật Khẩu" onChange={handleChange}></input>
-                            <button>Đăng Nhập</button>
-                        </form> */}
                         <Form labelCol={{ span: 8 }}
                             wrapperCol={{ span: 32 }}
                             style={{ maxWidth: 1000 }}
@@ -63,17 +61,17 @@ function SignIn({ open, setCookie, handleCancel, handleOK,setAcc}) {
                                 layout="vertical"
                                 label = "Username"
                                 name="userName"
-                                rules={[{ required: true, message: 'Please input your username!' }]}
+                                rules={[{ required: true, message: 'Không được bỏ trống tên đăng nhập' }]}
                             >
-                                <Input placeholder="Input your username" />
+                                <Input placeholder="Nhập tên đăng nhập" />
                             </Form.Item>
                             <Form.Item
                                 layout="vertical"
                                 label = "Password"
                                 name="password"
-                                rules={[{ required: true, message: 'Please input your password!' }]}
+                                rules={[{ required: true, message: 'Không được bỏ trống mật khẩu!' }]}
                             >
-                                <Input.Password placeholder="Input your password!" />
+                                <Input.Password placeholder="Nhập mật khẩu của bạn" />
                             </Form.Item>
                                 <button>Đăng Nhập</button>
                         </Form>

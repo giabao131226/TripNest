@@ -9,7 +9,6 @@ import { FaYoutube } from "react-icons/fa";
 import "./footer.css"
 
 
-
 function Footer() {
     return (
         <>

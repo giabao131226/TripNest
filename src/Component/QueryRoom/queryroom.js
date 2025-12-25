@@ -14,8 +14,35 @@ function QueryRoom() {
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
-            .then(data => setData(data))
-    })
+            .then(async (dulieu) => {
+                const phongCoTienIch = await Promise.all(
+                    dulieu.map(async (phong) => {
+                        const res = await fetch(
+                            `http://localhost:3000/tienich?idbds=${phong.id}`
+                        );
+                        const tienIch = await res.json();
+
+                        return {
+                            ...phong,
+                            tienIch
+                        };
+                    })
+                );
+                const datafirst = await Promise.all(
+                    phongCoTienIch.map(async (phong) => {
+                        const res = await fetch(`http://localhost:3000/hinhanh?idbds=${phong.id}`)
+                        const hinhAnh = await res.json()
+                        return {
+                            ...phong,
+                            hinhAnh
+                        }
+                    })
+                )
+                const dataFinal = datafirst.filter(item => {return item.idQTV!=""})
+                setData(dataFinal)
+                
+            })
+    },[])
     return (
         <>
             <div className="bdsList">
@@ -29,16 +56,16 @@ function QueryRoom() {
                             <div className="bdsbox" key = {index}>
                                 <div className="bdsbox__container">
                                     <Carousel style={{ width: 200 }} autoplay arrows>
-                                        {item.images.map((image,index) => (
+                                        {item.hinhAnh.map((image,index) => (
                                             <div className="bds__image" key={index}>
-                                                <img src={image}></img>
+                                                <img src={image.hinhAnh}></img>
                                             </div>
                                         ))}
                                     </Carousel>
                                     <Link to={item.id}>
                                         <div className="bds__about">
                                             <div className="bds__nameAndRate">
-                                                <span>{item.title}</span>
+                                                <span>{item.tenPhong}</span>
                                                 <span>{item.rateper10}/10</span>
                                             </div>
                                             <div className="bds__typeAndRate">
@@ -48,18 +75,17 @@ function QueryRoom() {
                                                 <Rate defaultValue={item.rate} allowHalf />
                                             </div>
                                             <div className="bds__tienIch">
-                                                {item.tienich.map((dv,index) => (
-                                                    <Tag color="cyan" key = {index}>{dv}</Tag>
+                                                {item.tienIch.map((dv,index) => (
+                                                    <Tag color="cyan" key = {index}>{dv.tienich}</Tag>
                                                 ))}
                                             </div>
                                             <div className="bds__danhGia">
-                                                <p>{item.danhGiaNoiBat[0].name}</p>
-                                                <i>{item.danhGiaNoiBat[0].danhGia}</i>
+                                                <p>{item.mota}</p>
                                             </div>
                                         </div>
                                     </Link>
                                     <div className="bds__price">
-                                        <p>{item.price}VND</p>
+                                        <p>{item.gia}VND</p>
                                         <Link to = {item.id}><button>Xem Phòng</button></Link>
                                     </div>
                                 </div>
@@ -71,7 +97,6 @@ function QueryRoom() {
                     </div>}
                 </div>
             </div>
-            
         </>
     )
 }

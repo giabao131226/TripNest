@@ -9,11 +9,11 @@ import { Outlet, useNavigate } from 'react-router-dom'
 const { RangePicker } = DatePicker;
 
 function BDSList() {
-    const [url, setUrl] = useState("https://servertripnest.onrender.com/api/bds")
+    const [url, setUrl] = useState("http://localhost:3000/phong")
     const [diadiem, setDiaDiem] = useState([])
     const [loaiPhong, setLoaiP] = useState([])
     const [queryDiaDiem, setQDD] = useState("HaNoi")
-    const [queryTypeRoom, setTR] = useState("VIP")
+    const [queryTypeRoom, setTR] = useState("Villa")
     const [querryTime, setTime] = useState(-1)
     const navigate = useNavigate();
     const getSoNgay = useCallback((start, end) => {
@@ -55,22 +55,23 @@ function BDSList() {
         setTime(soNgay)
     }, [])
     const handleClick = useCallback(() => {
-        let urlNew = "https://servertripnest.onrender.com/api/bds";
-        urlNew += "?diadiem=" + queryDiaDiem;
-        urlNew += "&typeRoom=" + queryTypeRoom;
+        let urlNew = "http://localhost:3000/phong";
+        urlNew += "?diaChi=" + queryDiaDiem;
+        urlNew += "&loaiPhong=" + queryTypeRoom;
         if (querryTime > 0) {
-            urlNew += "&time=" + querryTime;
+            urlNew += "&thoiGianChoThue=" + querryTime;
         }
+        console.log(urlNew)
         setUrl(urlNew)
         navigate("/list-bds")
     })
     useEffect(() => {
-        fetch("https://servertripnest.onrender.com/api/diadiem")
+        fetch("http://localhost:3000/diadiem")
             .then(res => res.json())
             .then(data => {
                 setDiaDiem(data)
             })
-        fetch("https://servertripnest.onrender.com/api/loaiPhong")
+        fetch("http://localhost:3000/loaiPhong")
             .then(res => res.json())
             .then(data => {
                 setLoaiP(data)

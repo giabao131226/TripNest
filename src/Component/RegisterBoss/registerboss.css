@@ -1,35 +1,172 @@
 
-.registerboss{
-    margin-top: 100px;
+.dsbds{
+    margin-top: 20vh;
+    width: 100%;
+}
+.dsbds__container{
+    width: 100%;
+}
+.dsbdsList__main{
+    padding: 20px;
+}
+.dsbds__box{
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.dsbds__title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.dsbds p{
+    margin: 0;
+}
+.dsbds h2{
+    margin: 0;
+}
+.dsbds__locationAndtype{
+    display: flex;
+    align-items: center;
+}
+.dsbds__location{
+    margin-right: 10px;
+}
+.dsbdsbox__title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+.dsbdsbox__tit1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.dsbds__nameAndRate{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.dsbds__priceAndcheck{
+    display: flex;
+}
+.dsbds__priceAndcheck p{
+    color: rgb(255, 136, 0);
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 20px;
+}
+.dsbds__image{
+    display: flex;
+    padding: 20px;
+    height: 200px;
+}
+.image{
+    position: relative;
+}
+.dsbds__deleteImage{
+    position: absolute;
+    right: 5px;
+    top: -5px;
+    border-radius: 50%;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+}
+.dsbds__themAnh{
+    width: 200px;
+    height: 200px;
+    color: white;
+    background-color: black;
+    font-size: 50px;
+    cursor: pointer;
+}
+.dsbds__themAnh:hover{
+    opacity: 0.8;
+}
+.mota{
+    height: 200px;
+    overflow: scroll;
+}
+.ant-image{
+    margin-right: 10px;
+}
+.dsbds__about{
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
+    padding: 0 20px;
+    border-collapse: collapse;
 }
-.registerboss__container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 40px;
-    border-radius: 30px;
+.dsbox{
+    width: calc(100% / 3);
+    margin-left: 20px;
+    border-right: 1px solid #ddd;
 }
-.registerboss__img{
-    width: 300px;
-    height: 100%;
-    margin-right: 30px;
+.dsbox:last-child{
+    border-right: none;
 }
-.registerboss__img:hover img{
-    transition: all 1000ms ease;
-    transform: scale(1.1);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.dsbox iframe{
+    width: 350px;
+    height: 200px;
 }
-
-.registerboss__img img{
-    width: 300px;
-    height: 400px;
-    object-fit: cover;
+.dsbox:first-child{
+    margin: 0;
+}
+.dsbds__ti{
+    position: relative;
+}
+.buttonXoaTienIch{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+}
+.buttonXoa{
+    color: white;
+    background-color: red;
+    border: none;
     border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 10px;
+    cursor: pointer
+}
+.buttonXoa:hover{
+    opacity: 0.6;
+}
+.buttonChinhSua{
+    color: white;
+    background-color: #4096FF;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.buttonChinhSua:hover{
+    opacity: 0.8;
+}
+.buttonXoaTienIch:hover{
+    opacity: 0.8;
+    color: red;
+}
+.icon__empty{
+    color: #dfcaca;
+    font-size: 50px;
+    margin: 0;
+    text-align: center;
+}
+.text__empty{
+    color: #dfcaca;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
 }

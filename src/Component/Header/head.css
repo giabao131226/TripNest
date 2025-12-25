@@ -151,3 +151,6 @@
     background-color: white;
     width: 100%;
 }
+.display__none{
+    display: none;
+}

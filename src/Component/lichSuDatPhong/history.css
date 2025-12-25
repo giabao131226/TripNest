@@ -1,0 +1,133 @@
+
+.history{
+    margin-top: 100px;
+}
+.history__container{
+    padding: 0px 90px
+}
+.history__main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.history__title{
+    color: #0F167A;
+}
+.history__button{
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.history__button button:hover{
+    background-color: #0F294D;
+    color: white;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+.history__button button{
+    position: relative;
+    background-color: white;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 30px 50px;
+    width: 270px;
+    border: none;
+    cursor: pointer;
+}
+.history__button button:nth-child(2)::after{
+    position: absolute;
+    top: 15px;
+    right: 0;
+    content: "|";
+    height: 50px;
+    width: 3px;
+    background-color: #ddd;
+    color: #ddd;
+    border-radius: 10px;
+}
+.history__button button:nth-child(2)::before{
+    position: absolute;
+    top: 15px;
+    left: 0;
+    content: "|";
+    height: 50px;
+    width: 3px;
+    background-color: #ddd;
+    color: #ddd;
+    border-radius: 10px;
+}
+.history__button button:nth-child(3)::after{
+    position: absolute;
+    top: 15px;
+    right: 0;
+    content: "|";
+    height: 50px;
+    width: 3px;
+    background-color: #ddd;
+    color: #ddd;
+    border-radius: 10px;
+}
+.history__button--active{
+    background-color: #0F294D !important;
+    color: white !important;
+    border-radius: 10px;
+}
+
+.historybox{
+    margin-bottom: 20px;
+}
+.historybox:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.historybox__image{
+    width: 300px;
+    height: 250px;
+}
+.historybox__vienimg{
+    width: 300px;
+    height: 250px;
+}
+.historybox__vienimg img{
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+}
+.historybox{
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+.historybox__container{
+    display: flex;
+    align-items: center;
+}
+.historybox__main{
+    margin-left: 20px;
+}
+.historybox__head{
+    display: flex;
+}
+.historybox__locateType span{
+    margin-right: 10px;
+}
+.historybox__locateType ~ p{
+    font-size: 15px;
+}
+.historybox__rateButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+.historybox__rateButton div{
+    margin-bottom: 10px;
+}
+.historybox__body{
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px dashed black;
+}

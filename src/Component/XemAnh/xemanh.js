@@ -8,7 +8,7 @@ function XemAnh(images){
                 <div className="xemanh__container">
                     <div className = "xemanh__images">
                         {data.map((item,index) => (
-                            <Image className = "image" width = {200}  src = {item} key = {index}></Image>
+                            <Image className = "image" width = {200}  src = {item.hinhAnh} key = {index}></Image>
                         ))}
                     </div>
                 </div>
