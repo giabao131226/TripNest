@@ -1,8 +1,7 @@
 import avatar from "../../assets/img/Logo-final.PNG"
-import { CiDiscount1 } from "react-icons/ci";
 import { IoMdPerson } from "react-icons/io";
 import "./head.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react"
 import { changeHeader } from "../actions/actions"
@@ -24,6 +23,7 @@ function Header() {
     const [messageApi, contextHolder] = message.useMessage();
     const [acc, setAcc] = useState({})
     const [reload, setReload] = useState(false)
+    const navigate = useNavigate();
     //Cài đặt cho modal Signin
     const openModalSI = useCallback(() => {
         setOMSignIn(true);
@@ -48,8 +48,29 @@ function Header() {
         handleReload();
     }, [])
     const handleClickHistory = useCallback(() => {
-        messageApi.info("Tính năng sẽ được cập nhật sau!!")
+        messageApi.open({
+            "type" : "success",
+            "content": "Tính năng sẽ được cập nhật sau"
+        })
     }, [])
+    const handleNavigateProperty = useCallback(() => {
+        if(acc.id != ""){
+            if(acc.vaiTro=="chuCoSo" || acc.vaiTro=="qtv") navigate("/your-property");
+            else{
+                messageApi.open({
+                    "type": "error",
+                    "content": "Bạn Không Đủ Quyền Để Truy Cập Trang Này. Hãy Nâng Cấp Quyền Nhé!!"
+                })
+                navigate("/quan-ly-tai-khoan")
+            }
+        }else{
+            messageApi.open({
+                "type": "error",
+                "content": "Bạn phải đăng nhập trước đã"
+            })
+            openModalSI();
+        }
+    },[])
     const items = [
         {
             key: '1',
@@ -57,7 +78,7 @@ function Header() {
         },
         {
             key: '2',
-            label: (<button onClick={handleClickHistory}>Quản Lý Tài Khoản</button>)
+            label: (<Link to = {"/quan-ly-tai-khoan"}><button >Quản Lý Tài Khoản</button></Link>)
         },
         {
             key: '3',
@@ -76,7 +97,7 @@ function Header() {
         const currentCookie = document.cookie;
         if (currentCookie) {
             setCookie(currentCookie);
-            fetch("http://localhost:3000/taiKhoan?" + currentCookie)
+            fetch("https://servertripnest-4.onrender.com/api/taiKhoan?" + currentCookie)
                 .then(res => res.json())
                 .then(data => {
                     setAcc(data[0]);
@@ -108,7 +129,7 @@ function Header() {
                             <ul>
                                 <Link to={"/"}><li>Trang Chủ</li></Link>
                                 <li>Phòng</li>
-                                <Link to={"/your-property"} state={{acc: acc}}><li>Danh Sách BĐS của bạn</li></Link>
+                                <li><button onClick={handleNavigateProperty} className={isActive ? "text-color-black bg-none" : "text-color-white bg-none"}>Danh Sách BĐS của bạn</button></li>
                             </ul>
                             {cookie != "" ? <div className="user">
                                 <div className="user__container">

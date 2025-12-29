@@ -154,3 +154,16 @@
 .display__none{
     display: none;
 }
+
+.text-color-white{
+    color: white !important;
+}
+.text-color-black{
+    color: black;
+}
+.bg-none{
+    background: none !important;
+}
+button{
+    cursor: pointer;
+}

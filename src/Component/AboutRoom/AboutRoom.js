@@ -33,9 +33,10 @@ function AboutRoom({ data,disableButton, setDisable }) {
             "idPhong": params.id,
             "ngayDat": ngayNhan,
             "ngayTra": ngayTra,
+            "daHoanTat": false,
             "pttt": values.pttt
         }
-        fetch("http://localhost:3000/phong/" + params.id, {
+        fetch("https://servertripnest-4.onrender.com/api/phong/" + params.id, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +47,7 @@ function AboutRoom({ data,disableButton, setDisable }) {
         })
             .then(res => res.json())
             .then(data => {setDisable(true)});
-        fetch("http://localhost:3000/datPhong",{
+        fetch("https://servertripnest-4.onrender.com/api/datPhong",{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"
@@ -66,7 +67,7 @@ function AboutRoom({ data,disableButton, setDisable }) {
     };
     useEffect(() => {
         setDisable(duLieu.trangThai)
-        fetch("http://localhost:3000/taiKhoan?" + document.cookie)
+        fetch("https://servertripnest-4.onrender.com/api/taiKhoan?" + document.cookie)
             .then(res => res.json())
             .then(data => {
                 setAcc(data[0])
@@ -160,7 +161,7 @@ function AboutRoom({ data,disableButton, setDisable }) {
                         </Select>
                     </Form.Item>
                     <div className="pttt">
-                        {pttt == "qr" ? (<QRCode value="https://ant.design/"></QRCode>) : ((<p>Bạn chọn phương thức thanh toán trực tiếp</p>))}
+                        {pttt == "qr" ? (<><span>*Quý khách vui lòng quét mã để thực hiện thanh toán</span><QRCode value="https://ant.design/"></QRCode></>) : (pttt=="trucTiep" ? <p>Quý khách vui lòng thanh toán toàn bộ chi phí đặt phòng khi đến nhận phòng tại khách sạn</p> : <p>Ví trả sau</p>)}
                     </div>
 
                     <Button htmlType="submit" className="request__button">

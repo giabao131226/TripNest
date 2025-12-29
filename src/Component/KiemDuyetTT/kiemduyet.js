@@ -5,17 +5,18 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaHotel } from "react-icons/fa";
 import "./kiemduyet.css"
 import useMessage from "antd/es/message/useMessage";
-import {useSelector,useDispatch} from "react-redux"
+import {useDispatch} from "react-redux"
 
 function KiemDuyet(){
-    const acc = useSelector(state => state.getInfo);
+    const acc = JSON.parse(localStorage.getItem("user"))
+    console.log(acc)
     const dispatch = useDispatch();
     const [messageApi,textHolder] = useMessage();
     const [data,setData] = useState([])
     const [reload,setReload] = useState(false)
     const pheDuyet = useCallback((e) => {
         const chapNhan = e.target.dataset.chapNhan;
-        fetch("http://localhost:3000/phong/"+e.target.id,{
+        fetch("https://servertripnest-4.onrender.com/api/phong/"+e.target.id,{
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -35,17 +36,17 @@ function KiemDuyet(){
             })
     },[])
     useEffect(() => {
-        fetch("http://localhost:3000/phong?duyet="+"chuaDuyet")
+        fetch("https://servertripnest-4.onrender.com/api/phong?duyet="+"chuaDuyet")
             .then(res => res.json())
             .then(async (duLieu) => {
                 const res = await Promise.all(duLieu.map(async (item) => {
-                    const resHA = await fetch("http://localhost:3000/hinhanh?idbds="+item.id);
+                    const resHA = await fetch("https://servertripnest-4.onrender.com/api/hinhanh?idbds="+item.id);
                     const hinhAnh = await resHA.json();
                     
                     const newData =  {
                         ...item,hinhAnh
                     }
-                    const resTI = await fetch("http://localhost:3000/tienich?idbds="+newData.id);
+                    const resTI = await fetch("https://servertripnest-4.onrender.com/api/tienich?idbds="+newData.id);
                     const tienIch = await resTI.json()
                     return {
                         ...newData,tienIch

@@ -7,7 +7,7 @@ function ThemAnh({closeModalThemAnh,modalThemAnh,idPhong,messageApi}){
             "idbds": idPhong,
             "hinhAnh": e.hinhAnh
         }
-        fetch("http://localhost:3000/hinhanh",{
+        fetch("https://servertripnest-4.onrender.com/api/hinhanh",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

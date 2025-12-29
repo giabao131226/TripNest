@@ -1,0 +1,37 @@
+
+.qltk{
+    margin-top: 50px;
+    padding: 50px 30px;
+    box-sizing: border-box;
+    background-color: #F1F1F1;
+}
+.qltk__container{
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.qltk__container label{
+    font-weight: 700;
+    color: #5d5959 !important;
+}
+.qltk__role{
+    font-weight: 700;
+    font-size: 17px;
+}
+.qltk__giayPhepKD{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.qltk__button{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}

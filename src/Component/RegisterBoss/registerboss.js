@@ -23,8 +23,7 @@ function RegisterBoss() {
         }
     ]
     const [idPhong, setIDPhong] = useState()
-    const location = useLocation();
-    const acc = location.state.acc;
+    const acc = JSON.parse((localStorage.getItem("user")))
     const [data, setData] = useState([])
     const [modalAdd, setMDADD] = useState(false)
     //Thong tin về modal thêm ảnh
@@ -64,9 +63,10 @@ function RegisterBoss() {
             trangThai: false,
             thoiGianChoThue: values.thoiGianChoThue,
             mota: values.mota,
-            idQTV: ""
+            idQTV: "",
+            duyet: "chuaDuyet"
         };
-        fetch("http://localhost:3000/phong", {
+        fetch("https://servertripnest-4.onrender.com/api/phong", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -81,7 +81,7 @@ function RegisterBoss() {
                     "content": "Chúc mừng bạn đã thêm bất động sản thành công!"
                 })
                 values.tienIch.map((item) => {
-                    fetch("http://localhost:3000/tienich", {
+                    fetch("https://servertripnest-4.onrender.com/api/tienich", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -104,13 +104,13 @@ function RegisterBoss() {
     }, [])
 
     useEffect(() => {
-        fetch("http://localhost:3000/phong?idChuSoHuu=" + acc.id)
+        fetch("https://servertripnest-4.onrender.com/api/phong?idChuSoHuu=" + acc.id)
             .then(res => res.json())
             .then(async (dulieu) => {
                 const phongCoTienIch = await Promise.all(
                     dulieu.map(async (phong) => {
                         const res = await fetch(
-                            `http://localhost:3000/tienich?idbds=${phong.id}`
+                            `https://servertripnest-4.onrender.com/api/tienich?idbds=${phong.id}`
                         );
                         const tienIch = await res.json();
 
@@ -122,7 +122,7 @@ function RegisterBoss() {
                 );
                 const datafinal = await Promise.all(
                     phongCoTienIch.map(async (phong) => {
-                        const res = await fetch(`http://localhost:3000/hinhanh?idbds=${phong.id}`)
+                        const res = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${phong.id}`)
                         const hinhAnh = await res.json()
                         return {
                             ...phong,
@@ -130,9 +130,10 @@ function RegisterBoss() {
                         }
                     })
                 )
+                console.log(datafinal)
                 setData(datafinal)
             })
-        fetch("http://localhost:3000/loaiPhong")
+        fetch("https://servertripnest-4.onrender.com/api/loaiPhong")
             .then(res => res.json())
             .then(data => {
                 setLoaiP(data)
@@ -144,7 +145,7 @@ function RegisterBoss() {
         openModalChange()
     }, [data])
     const handleDelete = useCallback((e) => {
-        fetch("http://localhost:3000/phong/" + data[e.target.id].id, {
+        fetch("https://servertripnest-4.onrender.com/api/phong/" + data[e.target.id].id, {
             method: "DELETE"
         })
             .then(res => res.json())
@@ -161,11 +162,11 @@ function RegisterBoss() {
         openModalThemAnh()
     }, [])
     const XoaAnh = useCallback((e) => {
-        fetch("http://localhost:3000/hinhanh/" + e.target.id, { method: "DELETE" })
+        fetch("https://servertripnest-4.onrender.com/api/hinhanh/" + e.target.id, { method: "DELETE" })
         setReload(!reload)
     }, [reload])
     const xoaTienIch = useCallback((e) => {
-        fetch("http://localhost:3000/tienich/" + e.target.parentNode.id, {
+        fetch("https://servertripnest-4.onrender.com/api/tienich/" + e.target.parentNode.id, {
             method: "DELETE"
         })
         setReload(!reload)

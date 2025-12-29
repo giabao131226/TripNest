@@ -8,15 +8,15 @@ function ChiTiet(){
     const [data,setData] = useState([])
     const [disableButton,setDisable] = useState(false)
     useEffect(() => {
-        fetch("http://localhost:3000/phong/"+params.id)
+        fetch("https://servertripnest-4.onrender.com/api/phong/"+params.id)
             .then(res => res.json())
             .then( async (duLieu) => {
-                const resTI = await fetch(`http://localhost:3000/tienich?idbds=${duLieu.id}`);
+                const resTI = await fetch(`https://servertripnest-4.onrender.com/api/tienich?idbds=${duLieu.id}`);
                 const tienIch = await resTI.json()
                 duLieu = {
                     ...duLieu,tienIch
                 }
-                const resHA = await fetch(`http://localhost:3000/hinhanh?idbds=${duLieu.id}`)
+                const resHA = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${duLieu.id}`)
                 const hinhAnh = await resHA.json()
                 duLieu = {
                     ...duLieu,hinhAnh

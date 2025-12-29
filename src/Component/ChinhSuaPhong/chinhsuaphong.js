@@ -19,7 +19,7 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
             mota: values.mota,
             idQTV: ""
         };
-        fetch("http://localhost:3000/phong/"+dataChange.id,{
+        fetch("https://servertripnest-4.onrender.com/api/phong/"+dataChange.id,{
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -36,7 +36,7 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
         })
         Promise.all(
             values.tienIch.map(async (item) => {
-                fetch("http://localhost:3000/tienich",{
+                fetch("https://servertripnest-4.onrender.com/api/tienich",{
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

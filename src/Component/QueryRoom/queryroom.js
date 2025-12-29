@@ -18,7 +18,7 @@ function QueryRoom() {
                 const phongCoTienIch = await Promise.all(
                     dulieu.map(async (phong) => {
                         const res = await fetch(
-                            `http://localhost:3000/tienich?idbds=${phong.id}`
+                            `https://servertripnest-4.onrender.com/api/tienich?idbds=${phong.id}`
                         );
                         const tienIch = await res.json();
 
@@ -30,7 +30,7 @@ function QueryRoom() {
                 );
                 const datafirst = await Promise.all(
                     phongCoTienIch.map(async (phong) => {
-                        const res = await fetch(`http://localhost:3000/hinhanh?idbds=${phong.id}`)
+                        const res = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${phong.id}`)
                         const hinhAnh = await res.json()
                         return {
                             ...phong,

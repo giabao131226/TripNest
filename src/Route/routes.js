@@ -4,6 +4,7 @@ import ChiTiet from "../Component/HienThiChiTiet/chitiet";
 import KiemDuyet from "../Component/KiemDuyetTT/kiemduyet";
 import LichSuDatPhong from "../Component/lichSuDatPhong/history";
 import PageDefault from "../Component/PageDefault/Pagedefault";
+import QuanLyTaiKhoan from "../Component/QuanLyTaiKhoan/quanlytaikhoan";
 import QueryRoom from "../Component/QueryRoom/queryroom";
 import RegisterBoss from "../Component/RegisterBoss/registerboss";
 import Terms from "../Component/terms/terms";
@@ -46,6 +47,10 @@ export const routes = [
             {
                 path: "/kiem-duyet",
                 element: <KiemDuyet />
+            },
+            {
+                path: "/quan-ly-tai-khoan",
+                element: <QuanLyTaiKhoan />
             }
         ]
     },
