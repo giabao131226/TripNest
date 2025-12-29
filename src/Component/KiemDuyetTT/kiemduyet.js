@@ -98,7 +98,7 @@ function KiemDuyet(){
                                             </div>
                                             <div className="kdbox__giayToPhapLy">
                                                 <p>Giấy tờ pháp lý:</p>
-                                                <Image src="https://cdn.thuvienphapluat.vn/phap-luat/2022/KhanhHuyen/29-7-11.jpg"></Image>
+                                                <Image src={item.soDo}></Image>
                                             </div>
                                             <div className="kdbox__button">
                                                 <button onClick={pheDuyet} id = {data[index].id} data-chap-nhan = "true" className="kdbox__buttonPheDuyet">Phê duyệt</button>

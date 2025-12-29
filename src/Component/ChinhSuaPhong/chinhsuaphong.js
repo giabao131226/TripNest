@@ -17,6 +17,7 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
             trangThai: false,
             thoiGianChoThue: values.thoiGianChoThue,
             mota: values.mota,
+            soDo: values.soDo,
             idQTV: ""
         };
         fetch("https://servertripnest-4.onrender.com/api/phong/"+dataChange.id,{
@@ -83,6 +84,9 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
                     <Form.Item label="Tiện Ích" name={"tienIch"}>
                         <Select options={tienIch} allowClear mode="multiple">
                         </Select>
+                    </Form.Item>
+                    <Form.Item initialValue={dataChange.soDo} label="Sổ Đỏ" name={"soDo"} rules={[{ required: true, message: "Bạn phải gắn link ảnh sổ đỏ" }]}>
+                        <Input></Input>
                     </Form.Item>
                     <Form.Item initialValue={dataChange.mota} label="Mô Tả" name={"mota"} rules={[{ required: true, message: "Bạn phải mô tả về bất động sản!" }]}>
                         <Input.TextArea></Input.TextArea>

@@ -30,6 +30,9 @@ function AddRoom({modalAdd,cancelMDA,handleSubmit,loaiPhong,tienIch}) {
                         <Select options={tienIch} allowClear mode="multiple">
                         </Select>
                     </Form.Item>
+                    <Form.Item label="Sổ đỏ" name={"soDo"}>
+                        <Input></Input>
+                    </Form.Item>
                     <Form.Item label="Mô Tả" name={"mota"} rules={[{ required: true, message: "Bạn phải mô tả về bất động sản!" }]}>
                         <Input.TextArea></Input.TextArea>
                     </Form.Item>

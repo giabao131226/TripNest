@@ -1,7 +1,6 @@
 import { Button, message, Tag, Rate, Image, Badge } from "antd";
 import "./registerboss.css"
 import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { FaHotel } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
 import ChinhSuaPhong from "../ChinhSuaPhong/chinhsuaphong";
@@ -64,6 +63,7 @@ function RegisterBoss() {
             thoiGianChoThue: values.thoiGianChoThue,
             mota: values.mota,
             idQTV: "",
+            soDo: values.soDo,
             duyet: "chuaDuyet"
         };
         fetch("https://servertripnest-4.onrender.com/api/phong", {

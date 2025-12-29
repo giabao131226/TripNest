@@ -55,7 +55,8 @@ function QuanLyTaiKhoan() {
             ...e,
             "giayPhepKD": giayPhepKD
         }
-        fetch("http://localhost:3000/taiKhoan/" + acc.id, {
+        console.log(newData)
+        fetch("https://servertripnest-4.onrender.com/api/taiKhoan/" + acc.id, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

@@ -24,8 +24,9 @@ function Register({ open, handleCancel ,openModalSI,handleCancel2}) {
     for (let i = 0; i < 25; i++) {
       token += chars[Math.floor(Math.random() * chars.length)]
     }
-    const acc = { ...e, "token": token }
-    fetch("http://localhost:3000/taiKhoan", {
+    const acc = { ...e, "token": token,"cccd": "",
+      "giayPhepKD": "","vaiTro": "khachHang" }
+    fetch("https://servertripnest-4.onrender.com/api/taiKhoan", {
       method: "POST",
       headers: {
         Accept: "application/json",
