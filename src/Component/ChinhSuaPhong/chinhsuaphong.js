@@ -18,7 +18,8 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
             thoiGianChoThue: values.thoiGianChoThue,
             mota: values.mota,
             soDo: values.soDo,
-            idQTV: ""
+            idQTV: "",
+            duyet: "chuaDuyet"
         };
         fetch("https://servertripnest-4.onrender.com/api/phong/"+dataChange.id,{
             method: "PATCH",

@@ -55,7 +55,8 @@ function Header() {
     }, [])
     const handleNavigateProperty = useCallback(() => {
         if(acc.id != ""){
-            if(acc.vaiTro=="chuCoSo" || acc.vaiTro=="qtv") navigate("/your-property");
+            console.log(acc.vaiTro)
+            if(acc.vaiTro=="qtv" || acc.vaiTro=="chuCoSo") navigate("/your-property");
             else{
                 messageApi.open({
                     "type": "error",
@@ -70,7 +71,7 @@ function Header() {
             })
             openModalSI();
         }
-    },[])
+    },[acc])
     const items = [
         {
             key: '1',
@@ -113,7 +114,7 @@ function Header() {
         window.addEventListener("scroll", handleScroll);
 
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [acc]);
     return (
         <>
             {contextHolder}
