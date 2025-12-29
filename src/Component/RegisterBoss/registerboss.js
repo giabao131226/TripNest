@@ -78,7 +78,7 @@ function RegisterBoss() {
                 closeModalAdd();
                 messageApi.open({
                     "type": "success",
-                    "content": "Chúc mừng bạn đã thêm bất động sản thành công!"
+                    "content": "Thêm thành công. Bất động sản đang chờ duyệt"
                 })
                 values.tienIch.map((item) => {
                     fetch("https://servertripnest-4.onrender.com/api/tienich", {
@@ -184,7 +184,7 @@ function RegisterBoss() {
                     <div className="dsbds__main">
                         {data.length != 0 ? <div className="dsbdsList__main">
                             {data.map((item, index) => (
-                                <Badge.Ribbon text={item.idQTV!="" ? "Đã Được Kiểm DUyệt" : "Chưa Được Kiểm Duyệt"} color={item.idQTV!="" ? "blue" : "red"}>
+                                <Badge.Ribbon text={item.duyet == "true" ? "Đã được kiểm duyệt" : (item.duyet=="false" ? "Bị từ chối" : "Đang chờ kiểm duyệt")} color={item.duyet == "true" ? "green" : (item.duyet=="false" ? "red" : "blue")}>
                                     <div className="dsbds__box" key={index}>
                                         <div className="dsbdsbox__container">
                                             <div className="dsbdsbox__title">

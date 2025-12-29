@@ -45,6 +45,8 @@ function Header() {
     const handleLogout = useCallback(() => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         setCookie("");
+        localStorage.removeItem("user")
+        setAcc({})
         handleReload();
     }, [])
     const handleClickHistory = useCallback(() => {
@@ -54,7 +56,7 @@ function Header() {
         })
     }, [])
     const handleNavigateProperty = useCallback(() => {
-        if(acc.id != ""){
+        if(acc && acc.id){
             console.log(acc.vaiTro)
             if(acc.vaiTro=="qtv" || acc.vaiTro=="chuCoSo") navigate("/your-property");
             else{
@@ -114,7 +116,7 @@ function Header() {
         window.addEventListener("scroll", handleScroll);
 
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [acc]);
+    }, []);
     return (
         <>
             {contextHolder}
