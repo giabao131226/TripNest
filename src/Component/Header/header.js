@@ -14,39 +14,28 @@ import { message } from "antd";
 import { IoPersonCircle } from "react-icons/io5";
 
 
-function Header() {
+function Header({isOMSignIn,isOMRegister,openModalSI,handleCancel,openModalRegister,handleCancel2}) {
+    const user = useSelector(state => state.auth).payload;
     const isActive = useSelector(state => state.changeAttHeader)
     const disPatch = useDispatch();
-    const [isOMSignIn, setOMSignIn] = useState(false)
-    const [isOMRegister, setOMRegister] = useState(false)
     const [cookie, setCookie] = useState('')
     const [messageApi, contextHolder] = message.useMessage();
     const [acc, setAcc] = useState({})
     const [reload, setReload] = useState(false)
     const navigate = useNavigate();
-    //Cài đặt cho modal Signin
-    const openModalSI = useCallback(() => {
-        setOMSignIn(true);
-    }, [])
-    const handleCancel = useCallback(() => {
-        setOMSignIn(false)
-    }, [])
-    //Cài đặt cho modal Register
-    const openModalRegister = useCallback(() => {
-        setOMRegister(true);
-    }, [])
-    const handleCancel2 = useCallback(() => {
-        setOMRegister(false)
-    }, [])
     const handleReload = useCallback(() => {
         setReload(!reload)
     }, [])
     //
     const handleLogout = useCallback(() => {
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-        setCookie("");
-        localStorage.removeItem("user")
-        setAcc({})
+        fetch("http://localhost:5000/account/logout",{
+            method: "POST",
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) disPatch({type: "UPDATE","payload": null})
+            }) 
         handleReload();
     }, [])
     const handleClickHistory = useCallback(() => {
@@ -56,9 +45,11 @@ function Header() {
         })
     }, [])
     const handleNavigateProperty = useCallback(() => {
-        if(acc && acc.id){
-            console.log(acc.vaiTro)
-            if(acc.vaiTro=="qtv" || acc.vaiTro=="chuCoSo") navigate("/your-property");
+        console.log(user);
+        if(user && user._id){
+            if(user.role=="qtv" || user.role=="chuCoSo"){
+                navigate("/your-property");
+            }
             else{
                 messageApi.open({
                     "type": "error",
@@ -73,7 +64,7 @@ function Header() {
             })
             openModalSI();
         }
-    },[acc])
+    },[user])
     const items = [
         {
             key: '1',
@@ -89,7 +80,7 @@ function Header() {
         },
         {
             key: '4',
-            label: (<Link to = {"/kiem-duyet"}><button className={acc.vaiTro != "qtv" ? "display__none" : ""}>Kiểm duyệt thông tin phòng</button></Link>)
+            // label: (<Link to = {"/kiem-duyet"}><button className={acc.vaiTro != "qtv" ? "display__none" : ""}>Kiểm duyệt thông tin phòng</button></Link>)
         },
         {
             key: '5',
@@ -97,15 +88,6 @@ function Header() {
         }
     ]
     useEffect(() => {
-        const currentCookie = document.cookie;
-        if (currentCookie) {
-            setCookie(currentCookie);
-            fetch("https://servertripnest-4.onrender.com/api/taiKhoan?" + currentCookie)
-                .then(res => res.json())
-                .then(data => {
-                    setAcc(data[0]);
-                });
-        }
         const handleScroll = () => {
             if (window.scrollY > 200||window.location.pathname!="/") {
                 disPatch(changeHeader(true))
@@ -134,13 +116,15 @@ function Header() {
                                 <li>Phòng</li>
                                 <li><button onClick={handleNavigateProperty} className={isActive ? "text-color-black bg-none" : "text-color-white bg-none"}>Danh Sách BĐS của bạn</button></li>
                             </ul>
-                            {cookie != "" ? <div className="user">
+                            {user ? <div className="user">
                                 <div className="user__container">
                                     <Dropdown menu={{ items }}>
                                         <a href="#" onClick={e => e.preventDefault()}>
                                             <Space style={{ color: "black" }}>
-                                                <IoPersonCircle />
-                                                {acc.username}
+                                                <div className = "user-avatar">
+                                                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb737h3r1Md9MgZxrZN3KENVQJe0mNHgyGfvVjZjRA6x2JAeByMDYEp58&s=10"></img>
+                                                </div>
+                                                {user.username}
                                                 <DownOutlined />
                                             </Space>
                                         </a>
@@ -155,8 +139,10 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <SignIn open={isOMSignIn} setCookie={setCookie} handleCancel={handleCancel} setAcc={setAcc} />
-            <Register open={isOMRegister} handleCancel={handleCancel2} openModalSI  = {openModalSI} handleCancel2  ={handleCancel2}/>
+            {user ? <></> : <>
+                <><SignIn open={isOMSignIn} setCookie={setCookie} handleCancel={handleCancel} setAcc={setAcc} />
+                <Register open={isOMRegister} handleCancel={handleCancel2} openModalSI  = {openModalSI} handleCancel2  ={handleCancel2}/></>
+            </>}
         </>
     )
 }

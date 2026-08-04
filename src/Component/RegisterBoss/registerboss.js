@@ -6,8 +6,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import ChinhSuaPhong from "../ChinhSuaPhong/chinhsuaphong";
 import AddRoom from "../AddRoom/addroom";
 import ThemAnh from "../ModalThemAnh/modalthemanh";
-
-
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function RegisterBoss() {
     const tienIch = [
@@ -21,10 +21,12 @@ function RegisterBoss() {
             label: "Lửa Trại", value: "Lửa Trại"
         }
     ]
+    const navigate = useNavigate();
     const [idPhong, setIDPhong] = useState()
-    const acc = JSON.parse((localStorage.getItem("user")))
+    const acc = useSelector(state => state.auth).payload;
     const [data, setData] = useState([])
     const [modalAdd, setMDADD] = useState(false)
+
     //Thong tin về modal thêm ảnh
     const [modalThemAnh, setMDImage] = useState(false)
     const openModalThemAnh = useCallback(() => {
@@ -66,7 +68,7 @@ function RegisterBoss() {
             soDo: values.soDo,
             duyet: "chuaDuyet"
         };
-        fetch("https://servertripnest-4.onrender.com/api/phong", {
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -104,7 +106,7 @@ function RegisterBoss() {
     }, [])
 
     useEffect(() => {
-        fetch("https://servertripnest-4.onrender.com/api/phong?idChuSoHuu=" + acc.id)
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich?idChuSoHuu=" + acc._id)
             .then(res => res.json())
             .then(async (dulieu) => {
                 const phongCoTienIch = await Promise.all(
@@ -130,7 +132,6 @@ function RegisterBoss() {
                         }
                     })
                 )
-                console.log(datafinal)
                 setData(datafinal)
             })
         fetch("https://servertripnest-4.onrender.com/api/loaiPhong")
@@ -145,7 +146,7 @@ function RegisterBoss() {
         openModalChange()
     }, [data])
     const handleDelete = useCallback((e) => {
-        fetch("https://servertripnest-4.onrender.com/api/phong/" + data[e.target.id].id, {
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich/" + data[e.target.id].id, {
             method: "DELETE"
         })
             .then(res => res.json())
@@ -178,7 +179,7 @@ function RegisterBoss() {
                 <div className="dsbds__container">
                     <div className="dsbds__title">
                         <h2>Danh sách bất động sản của bạn</h2>
-                        <Button type="primary" onClick={openModalAdd}>+</Button>
+                        <Button type="primary" onClick={() => {navigate("/your-property/create")}}>Thêm Mới Cơ Sở Lưu Trú</Button>
                     </div>
                     <hr></hr>
                     <div className="dsbds__main">
@@ -215,7 +216,7 @@ function RegisterBoss() {
 
                                                 ))}
                                                 <button className="dsbds__themAnh" onClick={themAnh} id={data[index].id}>
-                                                    +
+                                                    Thêm Cơ Sở Lưu Trú
                                                 </button>
                                             </div>
                                             <hr></hr>
@@ -245,8 +246,9 @@ function RegisterBoss() {
                                 </Badge.Ribbon>
                             ))}
                         </div> : <div className="bdsList__main">
-                            <div className="icon__empty"></div>
-                            <p className="text__empty">Dữ liệu sẽ được cập nhật sau....</p>
+                            <p className="text__empty">
+                                Hiện tại bạn chưa có cơ sở lưu trú nào ...
+                            </p>
                         </div>}
                     </div>
                 </div>

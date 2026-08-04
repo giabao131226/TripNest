@@ -1,0 +1,25 @@
+
+/* Static là giá trị mặc định không thể chỉnh top và left */
+.static{
+    position: static;
+}
+/* Relative lấy vị trí ban đầu của nó là gốc hoặc sử dụng để làm điểm leo */
+.relative{
+    position: relative;
+}
+/* Vị trí của nó sẽ ăn theo thằng có position khác relative */
+.absolute{
+    position: absolute;
+}
+/* Lấy điểm gốc là cửa sổ trình duyệt */
+.fixed{
+    position: fixed;
+}
+/* Là sự kết hợp của relative và fixed */
+.sticky{
+    position: sticky;
+}
+/* Rotate */
+/* .demo-transform:hover{
+    transform: ;
+} */

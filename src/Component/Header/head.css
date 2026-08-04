@@ -1,5 +1,6 @@
 .header{
-    position: fixed;
+    position: sticky;
+    top: 0px;
     width: 100vw;
     top: 0;
     z-index: 1000;
@@ -11,7 +12,6 @@
     color: white;
 }
 .header__container{
-    padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -70,7 +70,8 @@
 }
 .header2{
     background-color: white;
-    position: fixed;
+    position: sticky;
+    top: 0px;
     width: 100vw;
     top: 0;
     z-index: 1000;
@@ -166,4 +167,17 @@
 }
 button{
     cursor: pointer;
+}
+
+.user-avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.user-avatar img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
 }

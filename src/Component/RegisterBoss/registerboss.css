@@ -170,3 +170,191 @@
     margin: 0;
     text-align: center;
 }
+
+/* CSS cho màu của tiện ích */
+.amenity-item{
+    display: block;
+    cursor: pointer;
+}
+
+.amenity-item input{
+    display: none;
+}
+
+.amenity-content{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 14px 18px;
+
+    border: 2px solid #ececec;
+    border-radius: 14px;
+
+    background: #fff;
+
+    transition: .25s;
+}
+
+.amenity-content:hover{
+    border-color: #0ea5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
+
+.amenity-icon{
+    width: 46px;
+    height: 46px;
+
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #eef7ff;
+}
+
+.amenity-icon i{
+    color: #0ea5e9;
+    font-size: 22px;
+}
+
+.amenity-content span{
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Khi được chọn */
+
+.amenity-item input:checked + .amenity-content{
+    background: linear-gradient(135deg,#0ea5e9,#3b82f6);
+    border-color: transparent;
+    color: white;
+}
+
+.amenity-item input:checked + .amenity-content span{
+    color: white;
+}
+
+.amenity-item input:checked + .amenity-content .amenity-icon{
+    background: rgba(255,255,255,.2);
+}
+
+.amenity-item input:checked + .amenity-content .amenity-icon i{
+    color: white;
+}
+
+
+/* CSS Cho Trang Tạo Mới */
+.formCreateAccomodation{
+    width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+    gap: 24px;
+}
+
+.formCreateAccomodation > div{
+    gap: 10px;
+}
+
+.formCreateAccomodation label{
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.formCreateAccomodation input:not([type="checkbox"]),
+.formCreateAccomodation select{
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: .2s;
+}
+
+.formCreateAccomodation input:focus,
+.formCreateAccomodation select:focus{
+    border-color: #2563eb;
+}
+
+.formCreateAccomodation .col-6{
+    flex: 1;
+}
+
+.formCreateAccomodation .btn{
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.formCreateAccomodation .buttons button:first-child{
+    background: #2563eb;
+    color: #fff;
+}
+
+.formCreateAccomodation .buttons button:first-child:hover{
+    background: #1d4ed8;
+}
+
+.formCreateAccomodation .buttons button:last-child{
+    background: #10b981;
+    color: #fff;
+}
+
+.formCreateAccomodation .buttons button:last-child:hover{
+    background: #059669;
+}
+
+.formCreateAccomodation .images{
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 20px;
+}
+.formCreateAccomodation .images .empty{
+    height: 200px;
+    width: 100%;
+}
+
+@media (max-width: 768px){
+
+    .formCreateAccomodation{
+        width: calc(100% - 30px);
+        padding: 20px;
+    }
+
+    .formCreateAccomodation .gap-x-3{
+        flex-direction: column;
+    }
+
+    .formCreateAccomodation .items-center{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .formCreateAccomodation button{
+        width: 100%;
+    }
+}
+.formCreateAccomodation .images .vien{
+    position: relative;
+}
+
+.images .vien button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+}

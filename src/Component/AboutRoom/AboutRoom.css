@@ -109,3 +109,7 @@
     height: 250px;
     overflow: scroll;
 }
+.pttt__content::before{
+    content: "*";
+    color: red;
+}

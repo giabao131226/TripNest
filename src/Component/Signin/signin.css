@@ -9,11 +9,6 @@
     width: 100%;
     padding: 0;
 }
-/* .sigin form{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 .signin input{
     padding: 5px 10px;
     width: 100%;
@@ -46,3 +41,24 @@
 .signin__rule p{
     margin: 0;
 }
+
+.signInFormVienIMG{
+    width: 100%;
+    height: 300px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    position: relative;
+}
+.signInFormVienIMG img{
+    width: 110%;
+    height: 300px;
+    object-fit: cover;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    position: absolute;
+    top: -22px;
+    left: -25px;
+
+}
+
+

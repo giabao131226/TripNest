@@ -29,7 +29,7 @@ function LichSuDatPhong() {
             .then(res => res.json())
             .then(async (duLieuDatPhong) => {
                 const res = await Promise.all(duLieuDatPhong.map(async (item) => {
-                    const resData = await fetch("https://servertripnest-4.onrender.com/api/phong?id=" + item.idPhong);
+                    const resData = await fetch("https://servertripnest-4.onrender.com/api/bdsDuLich?id=" + item.idPhong);
                     const duLieuPhong = await resData.json();
                     const dataFirst = duLieuPhong[0];
                     const resHA = await fetch("https://servertripnest-4.onrender.com/api/hinhanh?idbds=" + item.idPhong)

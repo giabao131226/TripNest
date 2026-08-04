@@ -21,7 +21,7 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
             idQTV: "",
             duyet: "chuaDuyet"
         };
-        fetch("https://servertripnest-4.onrender.com/api/phong/"+dataChange.id,{
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich/"+dataChange.id,{
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -66,19 +66,19 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
         <>
             <Modal onCancel={closeModalChange} open={modalChange} footer = {false} title = "Chỉnh sửa thông tin" destroyOnHidden>
                 <Form form={form} onFinish={handleSubmit}>
-                    <Form.Item initialValue={dataChange.tenPhong} label="Tên Bất Động Sản" name={"tenPhong"} rules={[{ required: true, message: "Bạn phải nhập tên bất động sản trước!" }]}>
+                    <Form.Item initialValue={dataChange.tenPhong} label="Tên Bất Động Sản" name={"tenPhong"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item initialValue = {dataChange.gia} label="Gía" name={"gia"} rules={[{ required: true, message: "Bạn phải nhập giá bất động sản trước!" }]}>
+                    <Form.Item initialValue = {dataChange.gia} label="Gía" name={"gia"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item initialValue={dataChange.diaChi} label="Địa Chỉ" name={"diaChi"} rules={[{ required: true, message: "Bạn phải nhập địa chỉ trước!" }]}>
+                    <Form.Item initialValue={dataChange.diaChi} label="Địa Chỉ" name={"diaChi"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item initialValue={dataChange.thoiGianChoThue} label="Thời gian cho thuê" name={"thoiGianChoThue"} rules={[{ required: true, message: "Bạn phải ghi rõ thời gian cho thuê!" }]}>
+                    <Form.Item initialValue={dataChange.thoiGianChoThue} label="Thời gian cho thuê" name={"thoiGianChoThue"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item initialValue={dataChange.loaiPhong} label="Loại Bất Động Sản" name={"loaiPhong"} rules={[{ required: true, message: "Bạn phải nhập loại bất động sản!" }]}>
+                    <Form.Item initialValue={dataChange.loaiPhong} label="Loại Bất Động Sản" name={"loaiPhong"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Select options={loaiPhong}>
                         </Select>
                     </Form.Item>
@@ -86,10 +86,10 @@ function ChinhSuaPhong({closeModalChange,modalChange,dataChange,loaiPhong,messag
                         <Select options={tienIch} allowClear mode="multiple">
                         </Select>
                     </Form.Item>
-                    <Form.Item initialValue={dataChange.soDo} label="Sổ Đỏ" name={"soDo"} rules={[{ required: true, message: "Bạn phải gắn link ảnh sổ đỏ" }]}>
+                    <Form.Item initialValue={dataChange.soDo} label="Sổ Đỏ" name={"soDo"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item initialValue={dataChange.mota} label="Mô Tả" name={"mota"} rules={[{ required: true, message: "Bạn phải mô tả về bất động sản!" }]}>
+                    <Form.Item initialValue={dataChange.mota} label="Mô Tả" name={"mota"} rules={[{ required: true, message: "Thông tin bắt buộc" }]}>
                         <Input.TextArea></Input.TextArea>
                     </Form.Item>
                     <Button type="primary" htmlType="submit">Xác nhận</Button>

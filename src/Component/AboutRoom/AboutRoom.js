@@ -33,10 +33,10 @@ function AboutRoom({ data,disableButton, setDisable }) {
             "idPhong": params.id,
             "ngayDat": ngayNhan,
             "ngayTra": ngayTra,
-            "daHoanTat": false,
+            "daHoanTat": (values.pttt=="qr" ? true : false),
             "pttt": values.pttt
         }
-        fetch("https://servertripnest-4.onrender.com/api/phong/" + params.id, {
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich/" + params.id, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -91,16 +91,16 @@ function AboutRoom({ data,disableButton, setDisable }) {
                 <div className="aboutroom__container">
                     <div className="aboutroom__top">
                         <div className="aboutroom__nameAndrate">
-                            <h2>{duLieu.title}</h2>
+                            <h2>{duLieu.name}</h2>
                             <div className="aboutroom__rateAndtype">
-                                <Tag style={{ fontWeight: 600, fontSize: 13 }} key={duLieu.loai}>{duLieu.loai}</Tag>
+                                <Tag style={{ fontWeight: 600, fontSize: 13 }} key={duLieu.category_id}>{duLieu.category_id}</Tag>
                                 <Rate value={duLieu.rate} allowHalf></Rate>
                             </div>
                         </div>
                         <div className="aboutroom__pricebutton">
                             <div className="aboutroom__price">
                                 <span>Gía/Phòng/Đêm từ</span>
-                                <span>{duLieu.gia}VND</span>
+                                <span>{duLieu.price}VND</span>
                             </div>
                             <Button onClick={checkModal} disabled={disableButton}>{disableButton ? "Đã có người đặt" : "Đặt Phòng"}</Button>
                         </div>
@@ -112,7 +112,7 @@ function AboutRoom({ data,disableButton, setDisable }) {
                                 <p>Khách nói gì về kỳ nghỉ của họ</p>
                             </div>
                             <div className="aboutroom__moTa">
-                                {duLieu.mota}
+                                {duLieu.description}
                             </div>
                         </div>
                         <div className="aboutroom__box">
@@ -137,7 +137,7 @@ function AboutRoom({ data,disableButton, setDisable }) {
                 forceRender
             >
                 <Form form={form} onFinish={handleSubmit}>
-                    <Form.Item name="hovaten" label="Họ Và Tên" initialValue={acc.userName} rules={[{ required: true, message: "Please enter your Full Name!!" }]}>
+                    {/* <Form.Item name="hovaten" label="Họ Và Tên" initialValue={acc.userName} rules={[{ required: true, message: "Please enter your Full Name!!" }]}>
                         <Input placeholder="Họ Và Tên"></Input>
                     </Form.Item>
                     <Form.Item name="phone" label="Nhập Số Điện Thoại" initialValue={acc.phone} rules={[{ required: true, message: "Please enter your Phone!!" }]}>
@@ -159,9 +159,9 @@ function AboutRoom({ data,disableButton, setDisable }) {
                                 { value: "viTraSau", label: "Ví trả sau" },
                             ]}>
                         </Select>
-                    </Form.Item>
+                    </Form.Item> */}
                     <div className="pttt">
-                        {pttt == "qr" ? (<><span>*Quý khách vui lòng quét mã để thực hiện thanh toán</span><QRCode value="https://ant.design/"></QRCode></>) : (pttt=="trucTiep" ? <p>Quý khách vui lòng thanh toán toàn bộ chi phí đặt phòng khi đến nhận phòng tại khách sạn</p> : <p>Ví trả sau</p>)}
+                        {pttt == "qr" ? (<><span className="pttt__content">Quý khách vui lòng quét mã để thực hiện thanh toán</span><QRCode value="https://ant.design/"></QRCode></>) : <p className="pttt__content">Quý khách vui lòng thanh toán toàn bộ chi phí đặt phòng khi đến nhận phòng!!</p>}
                     </div>
 
                     <Button htmlType="submit" className="request__button">

@@ -59,6 +59,28 @@ function Body(){
                 </div>
             </div>
             <Welcome />
+
+            <div className="banner-animation d-flex items-center gap-x-3">
+                <div className="limit banner-1 col-2">
+                    <img src = "https://tostemvietnam.com/wp-content/uploads/2025/08/mau-homestay-san-vuon-phong-cach-nhat-ban.jpg"></img>
+                </div>
+                <div className="limit banner-2 col-2">
+                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz3ZUTg5YKTXlDE92DOmDoHx3eo364o-whl8sHYMPACY66hSFOVQKk9Fs&s=10"></img>
+                </div>
+                <div className="limit banner-3 col-2">
+                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU6DqzfwGHMnhDnUzNEpxHcKm1gILawV7GareK25q1V8EIHMqWmIAPV2A&s=10"></img>
+                </div>
+                <div className="limit banner-4 col-2">
+                    <img src = "https://cdn.justfly.vn/400x300/media/202110/01/1633072187-khuon-vien-vuon-lan-villa-son-tay-ha-noi1.jpg"></img>
+                </div>
+                <div className="limit banner-5 col-2">
+                    <img src = "https://vivatrip.vn/public/images/uploads/hotels/hotel_795363942_891403103.webp"></img>
+                </div>
+                <div className="limit banner-6 col-2">
+                    <img src = "https://thuevilla.com.vn/wp-content/uploads/2022/11/388570190.jpg"></img>
+                </div>
+            </div>
+
             <Recommend />
             <Blog/>
             <FollowUs />

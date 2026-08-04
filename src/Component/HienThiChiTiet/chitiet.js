@@ -8,29 +8,33 @@ function ChiTiet(){
     const [data,setData] = useState([])
     const [disableButton,setDisable] = useState(false)
     useEffect(() => {
-        fetch("https://servertripnest-4.onrender.com/api/phong/"+params.id)
+        const oldUrl = "https://servertripnest-4.onrender.com/api/bdsDuLich/";
+        fetch("http://localhost:5000/bds/detail/"+params.id)
             .then(res => res.json())
             .then( async (duLieu) => {
-                const resTI = await fetch(`https://servertripnest-4.onrender.com/api/tienich?idbds=${duLieu.id}`);
-                const tienIch = await resTI.json()
-                duLieu = {
-                    ...duLieu,tienIch
+                console.log(duLieu);
+                if(duLieu.success){
+                    setData(duLieu.data);
                 }
-                const resHA = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${duLieu.id}`)
-                const hinhAnh = await resHA.json()
-                duLieu = {
-                    ...duLieu,hinhAnh
-                }
-                setData(duLieu)
-                setDisable(duLieu.trangThai)
-            }
-            )
+                // const resTI = await fetch(`https://servertripnest-4.onrender.com/api/tienich?idbds=${duLieu.id}`);
+                // const tienIch = await resTI.json()
+                // duLieu = {
+                //     ...duLieu,tienIch
+                // }
+                // const resHA = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${duLieu.id}`)
+                // const hinhAnh = await resHA.json()
+                // duLieu = {
+                //     ...duLieu,hinhAnh
+                // }
+                // setData(duLieu)
+                // setDisable(duLieu.trangThai)
+            })
     },[])
     return (
         <>
             <div className="xemchitiet">
                 <div className="xemchitiet__container">
-                    <XemAnh image = {data.hinhAnh}/>
+                    <XemAnh image = {data.images}/>
                     <AboutRoom data = {data} disableButton = {disableButton} setDisable  = {setDisable} params = {params}/>
                 </div>
             </div>

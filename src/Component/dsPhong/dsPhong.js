@@ -9,7 +9,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 const { RangePicker } = DatePicker;
 
 function BDSList() {
-    const [url, setUrl] = useState("https://servertripnest-4.onrender.com/api/phong")
+    const [url, setUrl] = useState("https://servertripnest-4.onrender.com/api/bdsDuLich")
     const [diadiem, setDiaDiem] = useState([])
     const [loaiPhong, setLoaiP] = useState([])
     const [queryDiaDiem, setQDD] = useState("HaNoi")
@@ -55,7 +55,7 @@ function BDSList() {
         setTime(soNgay)
     }, [])
     const handleClick = useCallback(() => {
-        let urlNew = "https://servertripnest-4.onrender.com/api/phong";
+        let urlNew = "https://servertripnest-4.onrender.com/api/bdsDuLich";
         urlNew += "?diaChi=" + queryDiaDiem;
         urlNew += "&loaiPhong=" + queryTypeRoom;
         if (querryTime > 0) {

@@ -16,7 +16,7 @@ function KiemDuyet(){
     const [reload,setReload] = useState(false)
     const pheDuyet = useCallback((e) => {
         const chapNhan = e.target.dataset.chapNhan;
-        fetch("https://servertripnest-4.onrender.com/api/phong/"+e.target.id,{
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich/"+e.target.id,{
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -36,7 +36,7 @@ function KiemDuyet(){
             })
     },[])
     useEffect(() => {
-        fetch("https://servertripnest-4.onrender.com/api/phong?duyet="+"chuaDuyet")
+        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich?duyet="+"chuaDuyet")
             .then(res => res.json())
             .then(async (duLieu) => {
                 const res = await Promise.all(duLieu.map(async (item) => {
