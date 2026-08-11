@@ -4,10 +4,11 @@ import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import "./registerboss.css"
 import { FaInbox } from "react-icons/fa6";
-import { data, useAsyncError } from "react-router-dom";
+import { data, useAsyncError, useParams } from "react-router-dom";
 import Swal from 'sweetalert2'
 
-export default function CreateAccommodation() {
+
+export default function EditProperty() {
     const [content, setContent] = useState("");
     const [imageAccomodation, setImageAccomodation] = useState([]);
     const [imagesUpToSever, setImagesUpToSever] = useState([]);
@@ -17,6 +18,7 @@ export default function CreateAccommodation() {
     const [dataUpToSever, setDataUpToSever] = useState({});
     const [amenities, setAmenities] = useState([]);
     const [amenity, setAmenity] = useState([]);
+    const params = useParams();
 
     const handlePreviewImage = useCallback((e) => {
         const files = e.target.files;
@@ -30,7 +32,10 @@ export default function CreateAccommodation() {
         const images = [...imagesUpToSever];
         Array.from(files).forEach((item) => {
             const url = URL.createObjectURL(item);
-            arrayImage.push(url);
+            arrayImage.push({
+                "url": url,
+                "type": "new"
+            });
             images.push(item);
         })
         setImageAccomodation(arrayImage);
@@ -40,15 +45,23 @@ export default function CreateAccommodation() {
     const handleRemoveImagePreview = useCallback((e) => {
         const indexImage = e.target.getAttribute("image-index");
         const newImageAccomodation = [], newImagesUpToServer = [];
+        let oldImage = [...dataUpToSever.images];
+        let indexOld = -1,indexNew = -1;
         imageAccomodation.forEach((item, index) => {
+            if(item.type == "old") indexOld++;
+            else indexNew++;
             if (index != indexImage) {
                 newImageAccomodation.push(item);
-                newImagesUpToServer.push(imagesUpToSever[index]);
+                if(item.type == "new") newImagesUpToServer.push(imagesUpToSever[indexNew]);
+            }else{
+                if(item.type == "old"){
+                    oldImage = oldImage.filter((item,i) => i!=indexOld);
+                }
             }
         })
         setImageAccomodation(newImageAccomodation);
         setImagesUpToSever(newImagesUpToServer);
-
+        setDataUpToSever({...dataUpToSever,'images': oldImage});
     }, [imageAccomodation, imagesUpToSever]);
 
     const handleChangeProvince = useCallback((e) => {
@@ -73,22 +86,29 @@ export default function CreateAccommodation() {
         }
     }, [amenity])
 
-    const handleChange = useCallback((e) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setDataUpToSever({ ...dataUpToSever, [name]: value });
-    });
+    };
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
+
+        console.log(dataUpToSever.images);
+
         const imageLisence = document.querySelector("input#lisence");
 
         const formData = new FormData();
         Object.keys(dataUpToSever).forEach((item) => {
-            formData.append(item, dataUpToSever[item]);
+            if(item=="images"){
+                if(dataUpToSever[item].length > 0) formData.append("oldImages",JSON.stringify(dataUpToSever[item]));
+            }else if(item != "amenityIds"){
+                formData.append(item, dataUpToSever[item]);
+            }
         })
         formData.append("amenity", JSON.stringify(amenity));
 
-        if (imageLisence) {
+        if (imageLisence && imageLisence.files[0]) {
             formData.append("lisence", imageLisence.files[0]);
         }
 
@@ -97,7 +117,8 @@ export default function CreateAccommodation() {
                 formData.append("images", item);
             })
         }
-        fetch("http://localhost:5000/bds/save", {
+
+        fetch(`http://localhost:5000/bds/update/${params.slug}`, {
             method: "POST",
             credentials: "include",
             body: formData
@@ -107,7 +128,7 @@ export default function CreateAccommodation() {
                 if (data.success) {
                     Swal.fire({
                         icon: "success",
-                        title: "Đã lưu thành công!",
+                        title: "Cập Nhật thành công!",
                         text: "Thông tin cơ sở lưu trú đã được cập nhật.",
                         toast: true,
                         position: "top-end",
@@ -128,6 +149,16 @@ export default function CreateAccommodation() {
     }, [dataUpToSever, amenity, imagesUpToSever])
 
     useEffect(() => {
+        fetch(`http://localhost:5000/bds/edit/${params.slug}`)
+            .then(res => res.json())
+            .then(data => {
+                setDataUpToSever(data.accommodationDetail);
+                setImagePreviewLisence(data.accommodationDetail.lisence);
+                if(data.accommodationDetail.images && data.accommodationDetail.images.length >0){
+                    const oldImage = data.accommodationDetail.images.map((item) => ({"url": item,"type": "old"}));
+                    setImageAccomodation(oldImage);
+                }
+            })
         fetch("http://localhost:5000/province")
             .then(res => res.json())
             .then(data => {
@@ -142,6 +173,27 @@ export default function CreateAccommodation() {
             })
     }, [])
 
+    useEffect(() => {
+        if(dataUpToSever.province_id){
+            handleChangeProvince({target: {value: dataUpToSever.province_id}});
+        }
+
+        // Handle default amenity check
+        const inputAmenity = document.querySelectorAll("form input[type = 'checkbox']");
+        if(inputAmenity.length > 0 ){
+            const tmp = [];
+            inputAmenity.forEach((item) => {
+                const index = dataUpToSever.amenityIds.findIndex((id) => id.toString() === item.value);
+                if(index >= 0){
+                    item.checked = true;
+                    tmp.push(item.value);
+                }
+            })
+            setAmenity(tmp);
+        }
+        // End Handle default amenity check
+    },[provinces])
+
     return (
         <>
             <div className="container-fluid text-align-start">
@@ -150,7 +202,7 @@ export default function CreateAccommodation() {
                         <h3 className="m-0">Thông Tin Cơ Bản</h3>
                         <div className="d-flex flex-column">
                             <label>Tên Cơ Sở Lưu Trú</label>
-                            <input type="text" name="name" onChange={handleChange} required></input>
+                            <input type="text" name="name" onChange={handleChange} required defaultValue={dataUpToSever.name}></input>
                         </div>
                         <div className="d-flex flex-column">
                             <label>Địa chỉ</label>
@@ -158,9 +210,17 @@ export default function CreateAccommodation() {
                             <div className="d-flex gap-x-3">
                                 <div className="col-6 d-flex flex-column">
                                     <label>Thành phố</label>
-                                    <select name="province_id" onChange={handleChangeProvince}>
+                                    <select
+                                        name="province_id"
+                                        onChange={handleChangeProvince}
+                                    >
                                         <option value="province-default">--Chọn thành phố--</option>
-                                        {provinces.map((item, index) => <option value={item._id} key={index}>{item.name}</option>)}
+
+                                        {provinces.map((item) => (
+                                            <option key={item._id} value={item._id.toString()} selected = {dataUpToSever.province_id == item._id.toString() ? true : false}>
+                                                {item.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
 
@@ -168,7 +228,7 @@ export default function CreateAccommodation() {
                                     <label>Xã / Phường</label>
                                     <select name="ward_id" onChange={handleChange}>
                                         <option>--Chọn xã/phường--</option>
-                                        {wards.map((item, index) => <option value={item._id} key={index}>{item.name}</option>)}
+                                        {wards.map((item, index) => <option value={item._id} key={index} selected = {dataUpToSever.ward_id == item._id.toString() ? true : false}>{item.name}</option>)}
                                     </select>
                                 </div>
                             </div>
@@ -181,6 +241,7 @@ export default function CreateAccommodation() {
                                     type="text"
                                     placeholder="Ví dụ: 123 Trần Duy Hưng, Cầu Giấy"
                                     required
+                                    defaultValue={dataUpToSever.address}
                                 />
                             </div>
                         </div>
@@ -196,7 +257,6 @@ export default function CreateAccommodation() {
                                 {amenities.length > 0 ?
                                     <>
                                         {amenities.map((item, index) =>
-
                                             <div key={index} className="col-3 p-2">
                                                 <label className="amenity-item">
                                                     <input
@@ -234,7 +294,7 @@ export default function CreateAccommodation() {
                         </div>
                         <div className="d-flex flex-column">
                             <label>Giá</label>
-                            <input type="text" name="price" onChange={handleChange}></input>
+                            <input type="text" name="price" onChange={handleChange} defaultValue={dataUpToSever.price}></input>
                         </div>
                         <div className="d-flex flex-column">
                             <div className="d-flex justify-between">
@@ -252,17 +312,18 @@ export default function CreateAccommodation() {
                                 {imageAccomodation.length > 0 ?
                                     <>
                                         {imageAccomodation.map((item, index) =>
-                                            <div className="vien" key={index}>
-                                                <Image width={150} src={item} className="image" />
-                                                <button
+                                            <>
+                                                <div className="vien" key={index}>
+                                                    <Image width={150} src={item.url} className="image" />
+                                                    <button
 
-                                                    className="font-bold"
-                                                    type="button"
-                                                    onClick={handleRemoveImagePreview}
-                                                    image-index={index}
-                                                >x</button>
-                                            </div>
-                                        )}
+                                                        className="font-bold"
+                                                        type="button"
+                                                        onClick={handleRemoveImagePreview}
+                                                        image-index={index}
+                                                    >x</button>
+                                                </div>
+                                            </>)}
                                     </> :
                                     <>
                                         <div className="empty d-flex items-center justify-center gap-x-3">
@@ -288,8 +349,7 @@ export default function CreateAccommodation() {
                             {imagePreviewLisence ? <Image src={imagePreviewLisence} /> : <></>}
                         </div>
                         <div className="buttons d-flex items-center gap-x-2">
-                            <button className="btn btn-save" type="submit">Lưu</button>
-                            <button className="btn btn-request">Yêu Cầu Xác Minh</button>
+                            <button className="btn btn-save" type="submit">Cập Nhật</button>
                         </div>
                     </form>
                 </div>

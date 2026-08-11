@@ -7,215 +7,141 @@ import ChinhSuaPhong from "../ChinhSuaPhong/chinhsuaphong";
 import AddRoom from "../AddRoom/addroom";
 import ThemAnh from "../ModalThemAnh/modalthemanh";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 function RegisterBoss() {
-    const tienIch = [
-        {
-            label: "Wifi", value: "Wifi"
-        },
-        {
-            label: "Cho Thuê Xe Đạp", value: "Cho Thuê Xe Đạp"
-        },
-        {
-            label: "Lửa Trại", value: "Lửa Trại"
-        }
-    ]
+    const acc = useSelector(state => state.auth).payload;
     const navigate = useNavigate();
     const [idPhong, setIDPhong] = useState()
-    const acc = useSelector(state => state.auth).payload;
-    const [data, setData] = useState([])
-    const [modalAdd, setMDADD] = useState(false)
+    const [accommodation, setAccommodation] = useState([])
 
-    //Thong tin về modal thêm ảnh
-    const [modalThemAnh, setMDImage] = useState(false)
-    const openModalThemAnh = useCallback(() => {
-        setMDImage(true)
-    }, [])
-    const closeModalThemAnh = useCallback(() => {
-        setMDImage(false)
-    }, [])
     //Khi xoá thì set lại reload
     const [reload, setReload] = useState(false)
     //Data change
-    const [modalChange, setMDC] = useState(false)
     const [dataChange, setDataC] = useState({})
     const [loaiPhong, setLoaiP] = useState([])
     const [messageApi, contextHolder] = message.useMessage();
-    // Modal Add
-    const openModalAdd = useCallback(() => {
-        setMDADD(true);
-    }, [])
-    const cancelMDA = useCallback(() => {
-        setMDADD(false)
-    }, [])
-    const closeModalAdd = useCallback(() => {
-        setMDADD(false)
-    }, [])
-    const handleSubmit = useCallback((values) => {
-        const newPhong = {
-            tenPhong: values.tenPhong,
-            gia: values.gia,
-            loaiPhong: values.loaiPhong,
-            rate: 0,
-            rateper10: 0,
-            diaChi: values.diaChi,
-            idChuSoHuu: acc.id,
-            trangThai: false,
-            thoiGianChoThue: values.thoiGianChoThue,
-            mota: values.mota,
-            idQTV: "",
-            soDo: values.soDo,
-            duyet: "chuaDuyet"
-        };
-        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newPhong)
-        })
-            .then(res => res.json())
-            .then(data => {
-                closeModalAdd();
-                messageApi.open({
-                    "type": "success",
-                    "content": "Thêm thành công. Bất động sản đang chờ duyệt"
-                })
-                values.tienIch.map((item) => {
-                    fetch("https://servertripnest-4.onrender.com/api/tienich", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            "idbds": data.id,
-                            "tienich": item
-                        })
-                    })
-                        .then(res => res.json())
-                })
-            })
-    }, [])
-    //Modal chỉnh sửa
-    const openModalChange = useCallback(() => {
-        setMDC(true);
-    }, [])
-    const closeModalChange = useCallback(() => {
-        setMDC(false);
-    }, [])
 
     useEffect(() => {
-        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich?idChuSoHuu=" + acc._id)
-            .then(res => res.json())
-            .then(async (dulieu) => {
-                const phongCoTienIch = await Promise.all(
-                    dulieu.map(async (phong) => {
-                        const res = await fetch(
-                            `https://servertripnest-4.onrender.com/api/tienich?idbds=${phong.id}`
-                        );
-                        const tienIch = await res.json();
-
-                        return {
-                            ...phong,
-                            tienIch
-                        };
-                    })
-                );
-                const datafinal = await Promise.all(
-                    phongCoTienIch.map(async (phong) => {
-                        const res = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${phong.id}`)
-                        const hinhAnh = await res.json()
-                        return {
-                            ...phong,
-                            hinhAnh
-                        }
-                    })
-                )
-                setData(datafinal)
-            })
-        fetch("https://servertripnest-4.onrender.com/api/loaiPhong")
+        fetch("http://localhost:5000/bds/my-property", {
+            "credentials": "include"
+        })
             .then(res => res.json())
             .then(data => {
-                setLoaiP(data)
+                if (data.success) setAccommodation(data.bds);
             })
-    }, [modalAdd, modalChange, reload, modalThemAnh])
+            .catch(ex => {
+                Swal.fire({
+                        icon: "error",
+                        title: "Oops!!",
+                        text: "Có lỗi xảy ra, Vui lòng thử lại",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        background: "#ffffff",
+                        color: "#333",
+                        iconColor: "#22c55e"
+                    });
+            })
+    }, [reload])
 
     const handleClick = useCallback((e) => {
-        setDataC(data[e.target.id])
-        openModalChange()
-    }, [data])
+        setDataC(accommodation[e.target.id])
+    }, [accommodation])
+
+
+    // Handle Delete Accommodation
     const handleDelete = useCallback((e) => {
-        fetch("https://servertripnest-4.onrender.com/api/bdsDuLich/" + data[e.target.id].id, {
-            method: "DELETE"
+        const id = e.target.getAttribute("id");
+        fetch(`http://localhost:5000/bds/delete/${id}`, {
+            method: "PATCH"
         })
             .then(res => res.json())
             .then(data => {
-                messageApi.open({
-                    "type": "success",
-                    "content": "Bạn đã xoá bất động sản thành công!!"
-                })
-                setReload(!reload)
+                if (data.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Đã lưu thành công!",
+                        text: "Xoá thành công Cơ Sở Lưu Trú. Bạn có thể khôi phục lại trong phần Cơ Sở Lưu Trú đã xoá!!",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        background: "#ffffff",
+                        color: "#333",
+                        iconColor: "#22c55e"
+                    });
+                    const newAccommodation = accommodation.filter((item) => item._id != id);
+                    setAccommodation(newAccommodation);
+                }else{
+                    Swal.fire({
+                        icon: "error",
+                        title: "Xoá không thành công!",
+                        text: "Có lỗi xảy ra vui lòng thử lại!",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        background: "#ffffff",
+                        color: "#333",
+                        iconColor: "red"
+                    });
+                }
             })
-    }, [data])
-    const themAnh = useCallback((e) => {
-        setIDPhong(e.target.id)
-        openModalThemAnh()
-    }, [])
-    const XoaAnh = useCallback((e) => {
-        fetch("https://servertripnest-4.onrender.com/api/hinhanh/" + e.target.id, { method: "DELETE" })
-        setReload(!reload)
-    }, [reload])
-    const xoaTienIch = useCallback((e) => {
-        fetch("https://servertripnest-4.onrender.com/api/tienich/" + e.target.parentNode.id, {
-            method: "DELETE"
-        })
-        setReload(!reload)
-    }, [reload])
+    }, [accommodation])
+    //End Handle Delete Accommodation
+
+
     return (
         <>
             {contextHolder}
+            <div className="space-header"></div>
             <div className="dsbds">
                 <div className="dsbds__container">
                     <div className="dsbds__title">
                         <h2>Danh sách bất động sản của bạn</h2>
-                        <Button type="primary" onClick={() => {navigate("/your-property/create")}}>Thêm Mới Cơ Sở Lưu Trú</Button>
+                        <Button type="primary" onClick={() => { navigate("/your-property/create") }}>Thêm Mới Cơ Sở Lưu Trú</Button>
                     </div>
                     <hr></hr>
                     <div className="dsbds__main">
-                        {data.length != 0 ? <div className="dsbdsList__main">
-                            {data.map((item, index) => (
-                                <Badge.Ribbon text={item.duyet == "true" ? "Đã được kiểm duyệt" : (item.duyet=="false" ? "Bị từ chối" : "Đang chờ kiểm duyệt")} color={item.duyet == "true" ? "green" : (item.duyet=="false" ? "red" : "blue")}>
+                        {accommodation.length != 0 ? <div className="dsbdsList__main">
+                            {accommodation.map((item, index) => (
+                                <Badge.Ribbon text={item.duyet == "true" ? "Đã được kiểm duyệt" : (item.duyet == "false" ? "Bị từ chối" : "Đang chờ kiểm duyệt")} color={item.duyet == "true" ? "green" : (item.duyet == "false" ? "red" : "blue")}>
                                     <div className="dsbds__box" key={index}>
                                         <div className="dsbdsbox__container">
                                             <div className="dsbdsbox__title">
                                                 <div className="dsbdsbox__tit1">
                                                     <div className="dsbds__nameAndRate">
-                                                        <h2>{item.tenPhong}</h2>
+                                                        <h2>{item.name}</h2>
                                                         <Rate allowHalf defaultValue={item.rate}></Rate>
                                                     </div>
                                                     <div className="dsbds__locationAndtype">
                                                         <div className="dsbds__location">
-                                                            <FaLocationDot /> {item.diaChi}
+                                                            <FaLocationDot /> {item.address}
                                                         </div>
                                                         <Tag color={"blue"} icon={<FaHotel />}>  {item.loaiPhong}</Tag>
                                                     </div>
                                                 </div>
                                                 <div className="dsbds__priceAndcheck">
-                                                    <p>{item.gia}VND</p>
-                                                    <button style={{ "fontWeight": "600" }} onClick={handleClick} id={index} className="buttonChinhSua">Chỉnh sửa</button>
-                                                    <button onClick={handleDelete} id={index} className="buttonXoa">Xoá</button>
+                                                    <p>{item.price}VND</p>
+                                                    <Link to={`/your-property/edit/${item.slug}`}><button style={{ "fontWeight": "600" }} onClick={handleClick} id={index} className="buttonChinhSua">Chỉnh sửa</button></Link>
+                                                    <button onClick={handleDelete} id={item._id} className="buttonXoa">Xoá</button>
                                                 </div>
                                             </div>
                                             <div className="dsbds__image">
-                                                {item.hinhAnh.map((item, index) => (
+                                                {item.images?.map((item, index) => (
                                                     <div className="image" key={index}>
-                                                        <Image src={item.hinhAnh} width={200}></Image>
-                                                        <button className="dsbds__deleteImage" onClick={XoaAnh} id={item.id}>x</button>
+                                                        <Image src={item} width={200}></Image>
                                                     </div>
 
                                                 ))}
-                                                <button className="dsbds__themAnh" onClick={themAnh} id={data[index].id}>
+                                                <button className="dsbds__themAnh" id={accommodation[index].id}>
                                                     Thêm Cơ Sở Lưu Trú
                                                 </button>
                                             </div>
@@ -223,7 +149,7 @@ function RegisterBoss() {
                                             <div className="dsbds__about">
                                                 <div className="dsbds__des dsbox">
                                                     <h3>Mô Tả</h3>
-                                                    <div className="mota">{item.mota}</div>
+                                                    <div className="mota">{item.description}</div>
                                                 </div>
                                                 <div className="dsbds__map dsbox">
                                                     <h3>Vị trí</h3>
@@ -232,10 +158,13 @@ function RegisterBoss() {
                                                 <div className="dsbds__tienich dsbox">
                                                     <h3>Tiện ích</h3>
                                                     <ul>
-                                                        {item.tienIch?.map((dv, index) => (
-                                                            <li key={index} id={dv.id} className="dsbds__ti">
-                                                                <span>{dv.tienich}</span>
-                                                                <button onClick={xoaTienIch} className="buttonXoaTienIch">x</button>
+                                                        {item.amenity?.map((amenity, index) => (
+                                                            <li key={index} id={amenity._id} className="dsbds__ti">
+
+                                                                <div className="d-flex items-center gap-x-3">
+                                                                    <i className={amenity.icon}></i>
+                                                                    <span>{amenity.name}</span>
+                                                                </div>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -253,9 +182,8 @@ function RegisterBoss() {
                     </div>
                 </div>
             </div>
-            <ThemAnh openModalThemAnh={openModalThemAnh} closeModalThemAnh={closeModalThemAnh} modalThemAnh={modalThemAnh} idPhong={idPhong} messageApi={messageApi} />
-            <AddRoom modalAdd={modalAdd} cancelMDA={cancelMDA} handleSubmit={handleSubmit} loaiPhong={loaiPhong} tienIch={tienIch} />
-            <ChinhSuaPhong openModalChange={openModalChange} closeModalChange={closeModalChange} modalChange={modalChange} dataChange={dataChange} loaiPhong={loaiPhong} messageApi={messageApi} tienIch={tienIch} />
+            <ThemAnh odalThemAnh={idPhong} idPhong={idPhong} messageApi={messageApi} />
+            <ChinhSuaPhong dataChange={dataChange} loaiPhong={loaiPhong} messageApi={messageApi} />
         </>
     )
 }

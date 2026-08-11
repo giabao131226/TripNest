@@ -1,5 +1,5 @@
 .header{
-    position: sticky;
+    position: fixed;
     top: 0px;
     width: 100vw;
     top: 0;
@@ -69,8 +69,8 @@
     padding-bottom: 10px;
 }
 .header2{
+    position: fixed;
     background-color: white;
-    position: sticky;
     top: 0px;
     width: 100vw;
     top: 0;

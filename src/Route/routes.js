@@ -8,6 +8,7 @@ import ProtectedLayout from "../Component/ProtectedLayout/protected-layout";
 import QuanLyTaiKhoan from "../Component/QuanLyTaiKhoan/quanlytaikhoan";
 import QueryRoom from "../Component/QueryRoom/queryroom";
 import CreateAccommodation from "../Component/RegisterBoss/create";
+import EditProperty from "../Component/RegisterBoss/edit";
 import RegisterBoss from "../Component/RegisterBoss/registerboss";
 import Terms from "../Component/terms/terms";
 
@@ -36,12 +37,21 @@ export const routes = [{
         element: < ProtectedLayout />,
         children: [
             {
-                path: "your-property/",
-                element: < RegisterBoss />
-            },
-            {
-                path: "your-property/create",
-                element: <CreateAccommodation />,
+                path: "your-property",
+                children: [
+                    {
+                        path: "",
+                        element: < RegisterBoss />,
+                    },
+                    {
+                        path: "create",
+                        element: <CreateAccommodation />
+                    },
+                    {
+                        path: "edit/:slug",
+                        element: <EditProperty />
+                    }
+                ]
             },
             {
                 path: "terms",

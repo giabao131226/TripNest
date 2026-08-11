@@ -23,6 +23,7 @@ function Header({isOMSignIn,isOMRegister,openModalSI,handleCancel,openModalRegis
     const [acc, setAcc] = useState({})
     const [reload, setReload] = useState(false)
     const navigate = useNavigate();
+
     const handleReload = useCallback(() => {
         setReload(!reload)
     }, [])
@@ -45,7 +46,6 @@ function Header({isOMSignIn,isOMRegister,openModalSI,handleCancel,openModalRegis
         })
     }, [])
     const handleNavigateProperty = useCallback(() => {
-        console.log(user);
         if(user && user._id){
             if(user.role=="qtv" || user.role=="chuCoSo"){
                 navigate("/your-property");

@@ -3,6 +3,7 @@ import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import { useState,useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import "../../assets/css/flex.css";
 
 function PageDefault() {
     const [isOMSignIn, setOMSignIn] = useState(false)
