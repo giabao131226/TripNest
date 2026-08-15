@@ -11,6 +11,9 @@ import CreateAccommodation from "../Component/RegisterBoss/create";
 import EditProperty from "../Component/RegisterBoss/edit";
 import RegisterBoss from "../Component/RegisterBoss/registerboss";
 import Terms from "../Component/terms/terms";
+import LayoutDefault from "../layouts/admin/default";
+import ProtectedLayoutAdmin from "../layouts/admin/protected/protected-layout";
+import Login from "../pages/admin/auth/login";
 
 export const routes = [{
     path: "/",
@@ -72,4 +75,25 @@ export const routes = [{
         ]
     }
     ]
-},]
+}
+    ,
+{
+    "path": "/admin",
+    "element": <ProtectedLayoutAdmin />,
+    "children": [
+        {
+            "path": "",
+            "element": <LayoutDefault />
+        }
+    ]
+},
+{
+    "path": "/admin/auth",
+    children: [
+        {
+            path: "login",
+            element: <Login />
+        }
+    ]
+}
+]
