@@ -14,6 +14,7 @@ import Terms from "../Component/terms/terms";
 import LayoutDefault from "../layouts/admin/default";
 import ProtectedLayoutAdmin from "../layouts/admin/protected/protected-layout";
 import Login from "../pages/admin/auth/login";
+import Check from "../pages/admin/accommodation/Check/Check";
 
 export const routes = [{
     path: "/",
@@ -83,7 +84,13 @@ export const routes = [{
     "children": [
         {
             "path": "",
-            "element": <LayoutDefault />
+            "element": <LayoutDefault />,
+            "children": [
+                {
+                    "path": "accommodation/kiem-duyet",
+                    "element": <Check />
+                }
+            ]
         }
     ]
 },

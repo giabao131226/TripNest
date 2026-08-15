@@ -12,39 +12,6 @@ function QueryRoom() {
     let { url } = useOutletContext();
     const [data, setData] = useState([])
     useEffect(() => {
-        // url+"?duyet=true"
-        // fetch("http://localhost:5000/bds")
-            // .then(res => res.json())
-            // .then((dulieu) => {
-            //     console.log("đã chạy vào đây");
-            //     console.log(duLieu);
-                // const phongCoTienIch = await Promise.all(
-                //     dulieu.map(async (phong) => {
-                //         const res = await fetch(
-                //             `https://servertripnest-4.onrender.com/api/tienich?idbds=${phong.id}`
-                //         );
-                //         const tienIch = await res.json();
-
-                //         return {
-                //             ...phong,
-                //             tienIch
-                //         };
-                //     })
-                // );
-                // const datafirst = await Promise.all(
-                //     phongCoTienIch.map(async (phong) => {
-                //         const res = await fetch(`https://servertripnest-4.onrender.com/api/hinhanh?idbds=${phong.id}`)
-                //         const hinhAnh = await res.json()
-                //         return {
-                //             ...phong,
-                //             hinhAnh
-                //         }
-                //     })
-                // )
-                // const dataFinal = datafirst.filter(item => {return item.idQTV!=""})
-                // setData(dataFinal)
-                
-            // })
             fetch("http://localhost:5000/bds")
                 .then(res => res.json())
                 .then((responeFromServer) => {
@@ -69,7 +36,7 @@ function QueryRoom() {
                                     <Carousel style={{ width: 200 }} autoplay arrows>
                                         {item.images.map((image,index) => (
                                             <div className="bds__image" key={index}>
-                                                <img src={image.url}></img>
+                                                <img src={image}></img>
                                             </div>
                                         ))}
                                     </Carousel>
@@ -91,7 +58,7 @@ function QueryRoom() {
                                                 ))} */}
                                             </div>
                                             <div className="bds__danhGia">
-                                                <p>{item.description}</p>
+                                                <p dangerouslySetInnerHTML={{__html:item.description}}></p>
                                             </div>
                                         </div>
                                     </Link>

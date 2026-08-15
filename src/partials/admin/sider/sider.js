@@ -8,7 +8,8 @@ import { BiSolidUserAccount } from "react-icons/bi";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaShieldAlt } from "react-icons/fa";
 import { MdLibraryAdd } from "react-icons/md";
-
+import { FaHotel } from "react-icons/fa";
+import { FaBuildingCircleCheck } from "react-icons/fa6";
 
 
 import { useState } from "react";
@@ -16,7 +17,7 @@ import { useState } from "react";
 
 const items = [
     {
-        label: <Link to={"/admin/quan-ly-tai-khoan"} > <span >Quản Lý Tài Khoản</span></Link>,
+        label: <Link to={"/admin/dashboard"} > <span >Tổng quan</span></Link>,
         key: 'account',
         icon: <BiSolidUserAccount />
     },
@@ -48,6 +49,22 @@ const items = [
                 "label": <Link to = {"quan-ly-bai-kiem-tra/create"}>Tạo Bài Kiểm Tra</Link>,
                 "key": 'create-test',
                 icon: <MdLibraryAdd />
+            }
+        ]
+    },
+    {
+        label: "Quản Lý Cơ Sở Lưu Trú",
+        key: "accommodation",
+        children: [
+            {
+                "label": <Link to = {"accommodations"}>Quản trị</Link>,
+                "key": 'manage-accommodation',
+                icon: <FaHotel />
+            },
+            {
+                "label": <Link to = {"accommodation/kiem-duyet"}>Kiểm duyệt</Link>,
+                "key": 'kiem-duyet-accommodation',
+                icon: <FaBuildingCircleCheck />
             }
         ]
     },

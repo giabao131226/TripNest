@@ -1,17 +1,17 @@
 import { Button, message, Tag, Rate, Image, Badge } from "antd";
-import "./registerboss.css"
+import "./Check.css"
 import { useCallback, useEffect, useState } from "react";
 import { FaHotel } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
-import ChinhSuaPhong from "../ChinhSuaPhong/chinhsuaphong";
-import AddRoom from "../AddRoom/addroom";
-import ThemAnh from "../ModalThemAnh/modalthemanh";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { FaCheck } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 
-function RegisterBoss() {
+
+export default function Check() {
     const acc = useSelector(state => state.auth).payload;
     const navigate = useNavigate();
     const [idPhong, setIDPhong] = useState()
@@ -25,7 +25,7 @@ function RegisterBoss() {
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
-        fetch("http://localhost:5000/bds/my-property", {
+        fetch("http://localhost:5000/admin/accommodation", {
             "credentials": "include"
         })
             .then(res => res.json())
@@ -34,39 +34,35 @@ function RegisterBoss() {
             })
             .catch(ex => {
                 Swal.fire({
-                        icon: "error",
-                        title: "Oops!!",
-                        text: "Có lỗi xảy ra, Vui lòng thử lại",
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true,
-                        background: "#ffffff",
-                        color: "#333",
-                        iconColor: "#22c55e"
-                    });
+                    icon: "error",
+                    title: "Oops!!",
+                    text: "Có lỗi xảy ra, Vui lòng thử lại",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                    background: "#ffffff",
+                    color: "#333",
+                    iconColor: "#22c55e"
+                });
             })
     }, [reload])
 
-    const handleClick = useCallback((e) => {
-        setDataC(accommodation[e.target.id])
-    }, [accommodation])
-
-
-    // Handle Delete Accommodation
-    const handleDelete = useCallback((e) => {
-        const id = e.target.getAttribute("id");
-        fetch(`http://localhost:5000/bds/delete/${id}`, {
-            method: "PATCH"
+    const handleCheck = useCallback((e) => {
+        const id = e.target.getAttribute("id-element");
+        const status = e.target.getAttribute("status");
+        fetch(`http://localhost:5000/admin/accommodation/check/${id}/${status}`, {
+            "credentials": "include",
+            "method": "PATCH"
         })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     Swal.fire({
                         icon: "success",
-                        title: "Đã lưu thành công!",
-                        text: "Xoá thành công Cơ Sở Lưu Trú. Bạn có thể khôi phục lại trong phần Cơ Sở Lưu Trú đã xoá!!",
+                        title: "Thành công",
+                        text: "Cập nhật trạng thái thành công",
                         toast: true,
                         position: "top-end",
                         showConfirmButton: false,
@@ -76,45 +72,40 @@ function RegisterBoss() {
                         color: "#333",
                         iconColor: "#22c55e"
                     });
-                    const newAccommodation = accommodation.filter((item) => item._id != id);
-                    setAccommodation(newAccommodation);
-                }else{
-                    Swal.fire({
-                        icon: "error",
-                        title: "Xoá không thành công!",
-                        text: "Có lỗi xảy ra vui lòng thử lại!",
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true,
-                        background: "#ffffff",
-                        color: "#333",
-                        iconColor: "red"
-                    });
+                    setReload(!reload);
                 }
             })
+            .catch(ex => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops!!",
+                    text: "Có lỗi xảy ra, Vui lòng thử lại",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                    background: "#ffffff",
+                    color: "#333",
+                    iconColor: "#22c55e"
+                });
+            })
     }, [accommodation])
-    //End Handle Delete Accommodation
 
 
     return (
         <>
             {contextHolder}
-            <div className="space-header"></div>
             <div className="dsbds">
                 <div className="dsbds__container">
                     <div className="dsbds__title">
-                        <h2>Danh sách bất động sản của bạn</h2>
-                        <Button type="primary" onClick={() => { navigate("/your-property/create") }}>Thêm Mới Cơ Sở Lưu Trú</Button>
+                        <h2 className="m-0">Kiểm duyệt bất động sản</h2>
                     </div>
                     <hr></hr>
                     <div className="dsbds__main">
                         {accommodation.length != 0 ? <div className="dsbdsList__main">
                             {accommodation.map((item, index) => (
-                                <Badge.Ribbon 
-                                    text={item.status == "active" ? "Đã được kiểm duyệt" : (item.status == "denided" ? "Bị từ chối" : "Đang chờ kiểm duyệt")} 
-                                    color={item.status == "active" ? "green" : (item.status == "denided" ? "red" : "blue")}>
+                                <Badge.Ribbon text={item.duyet == "true" ? "Đã được kiểm duyệt" : (item.duyet == "false" ? "Bị từ chối" : "Đang chờ kiểm duyệt")} color={item.duyet == "true" ? "green" : (item.duyet == "false" ? "red" : "blue")}>
                                     <div className="dsbds__box" key={index}>
                                         <div className="dsbdsbox__container">
                                             <div className="dsbdsbox__title">
@@ -132,8 +123,13 @@ function RegisterBoss() {
                                                 </div>
                                                 <div className="dsbds__priceAndcheck">
                                                     <p>{item.price}VND</p>
-                                                    <Link to={`/your-property/edit/${item.slug}`}><button style={{ "fontWeight": "600" }} onClick={handleClick} id={index} className="buttonChinhSua">Chỉnh sửa</button></Link>
-                                                    <button onClick={handleDelete} id={item._id} className="buttonXoa">Xoá</button>
+                                                    <button className="btnXemChiTiet">Xem chi tiết</button>
+                                                    <button style={{ "fontWeight": "600" }} onClick={handleCheck} id-element={item._id} status="active" className="buttonChinhSua">
+                                                        <FaCheck /> Duyệt
+                                                    </button>
+                                                    <button onClick={handleCheck} id-element={item._id} status="denided" className="buttonXoa">
+                                                        <IoClose /> Từ Chối
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div className="dsbds__image">
@@ -184,9 +180,6 @@ function RegisterBoss() {
                     </div>
                 </div>
             </div>
-            <ThemAnh odalThemAnh={idPhong} idPhong={idPhong} messageApi={messageApi} />
-            <ChinhSuaPhong dataChange={dataChange} loaiPhong={loaiPhong} messageApi={messageApi} />
         </>
     )
 }
-export default RegisterBoss;
