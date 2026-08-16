@@ -15,6 +15,7 @@ import LayoutDefault from "../layouts/admin/default";
 import ProtectedLayoutAdmin from "../layouts/admin/protected/protected-layout";
 import Login from "../pages/admin/auth/login";
 import Check from "../pages/admin/accommodation/Check/Check";
+import QuanTri from "../pages/admin/accommodation/QuanTri";
 
 export const routes = [{
     path: "/",
@@ -86,6 +87,10 @@ export const routes = [{
             "path": "",
             "element": <LayoutDefault />,
             "children": [
+                {
+                    "path": "accommodation",
+                    "element": <QuanTri />
+                },
                 {
                     "path": "accommodation/kiem-duyet",
                     "element": <Check />
