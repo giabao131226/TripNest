@@ -16,6 +16,7 @@ import ProtectedLayoutAdmin from "../layouts/admin/protected/protected-layout";
 import Login from "../pages/admin/auth/login";
 import Check from "../pages/admin/accommodation/Check/Check";
 import QuanTri from "../pages/admin/accommodation/QuanTri";
+import ManageUser from "../pages/admin/users/user-manage";
 
 export const routes = [{
     path: "/",
@@ -94,6 +95,10 @@ export const routes = [{
                 {
                     "path": "accommodation/kiem-duyet",
                     "element": <Check />
+                },
+                {
+                    "path": "user",
+                    "element": <ManageUser />
                 }
             ]
         }

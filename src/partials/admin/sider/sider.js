@@ -10,8 +10,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { MdLibraryAdd } from "react-icons/md";
 import { FaHotel } from "react-icons/fa";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
-
-
+import { FaUserGroup } from "react-icons/fa6";
 import { useState } from "react";
 
 
@@ -20,6 +19,11 @@ const items = [
         label: <Link to={"/admin/dashboard"} > <span >Tổng quan</span></Link>,
         key: 'account',
         icon: <BiSolidUserAccount />
+    },
+    {
+        label: <Link to = {"/admin/user"}>Quản lý người dùng</Link>,
+        key: 'user',
+        icon: <FaUserGroup />
     },
     {
         label: "Quản Lý Bài Đăng",
